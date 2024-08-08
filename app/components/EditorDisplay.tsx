@@ -21,8 +21,6 @@ const EditorDisplay = () => {
     return (
         <section className={EditorDisplayStyles.editor_main}>
             {displayMockup}
-
-            
         </section>
     )
 }
