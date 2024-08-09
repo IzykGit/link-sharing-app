@@ -12,7 +12,7 @@ import { motion } from "framer-motion"
 
 const LinksForm = () => {
 
-    const [inputFields, setInputFields] = useState([ { id: 0, platform: "", link: "" } ])
+    const [inputFields, setInputFields] = useState([ { id: 1, platform: "", link: "" } ])
     const [linkNum, setLinkNum] = useState(0)
 
     const [selectedOption, setSelectedOption] = useState(linkOptions[0])
@@ -21,7 +21,9 @@ const LinksForm = () => {
     const addLink = () => {
         console.log("Link added")
 
-        let newFields = { id: linkNum + 1, platform: "", link: "" }
+        const oldId = inputFields[inputFields.length - 1].id
+        let newFields = { id: oldId + 1, platform: "", link: "" }
+        console.log(newFields)
 
         if(linkNum === 5) {
             return;
@@ -39,14 +41,24 @@ const LinksForm = () => {
         
     }
 
-    const removeLink = (index: number) => {
-        const newFields = inputFields.splice(index, 1)
+    const removeLink = (Id: number) => {
 
-        setLinkNum(linkNum - 1)
-        setInputFields(newFields)
+        if(linkNum === 1) {
+            setInputFields([ { id: 1, platform: "", link: "" } ])
+            setLinkNum(linkNum - 1)
+            return;
+        }
+        else {
+            const newFields = inputFields.filter(inputField => inputField.id !== Id);
+            setLinkNum(linkNum - 1)
+            setInputFields(newFields)
+            return;
+        }
+
     }
 
     console.log(inputFields)
+
 
 
 
@@ -82,7 +94,7 @@ const LinksForm = () => {
 
                                 <div className={LinksFormStyles.linkNum_remove}>
                                     <h2><img alt='' src='/assets/images/icon-drag-and-drop.svg'/>Link #{index + 1}</h2>
-                                    <button type='button' onClick={() => removeLink(index)}>Remove</button>
+                                    <button type='button' onClick={() => removeLink(input.id)}>Remove</button>
                                 </div>
                                 
 
@@ -106,21 +118,24 @@ const LinksForm = () => {
                                             </div>
                                         </div>
 
-                                        <motion.div className={CustomDropStyles.drop_options_container} 
-                                        initial="closed" animate={dropDown ? "open" : "closed"} variants={variants}
-                                        >
-                                            {linkOptions.map((option, index) => (
-                                                <>
-                                                <p key={index} role='button' onClick={() => { setSelectedOption(option), setDropDown(!dropDown)}} className={CustomDropStyles.drop_option}>
+                                        {linkOptions.map((option, optionIndex) => (
+                                            <motion.div key={option.label} className={CustomDropStyles.drop_options_container} 
+                                            initial="closed" animate={(dropDown && index === optionIndex) ? "open" : "closed"} variants={variants}
+                                            >
+                                                <p role='button' onClick={() => { setSelectedOption(option), setDropDown(!dropDown)}} className={CustomDropStyles.drop_option}>
                                                     <img src={option.img}/>
                                                     {option.label}
                                                 </p>
-                                                </>
-                                            ))}
-                                        </motion.div>
-
+                                            </motion.div>
+                                        ))}
                                         
                                     </div>
+                                </div>
+
+
+                                <div>
+                                    <label>Link</label>
+                                    <input type="url" name="" id="" />
                                 </div>
 
                             </div>
