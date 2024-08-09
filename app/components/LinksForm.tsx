@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import LinksFormStyles from "../styles/components/LinksForm.module.css"
 import CustomDropStyles from "../styles/components/CustomDrop.module.css";
@@ -15,13 +15,14 @@ const LinksForm = () => {
     const [inputFields, setInputFields] = useState([ { id: 1, platform: "", link: "" } ])
     const [linkNum, setLinkNum] = useState(0)
 
-    const [selectedOption, setSelectedOption] = useState(linkOptions[0])
+    const [selectedOption, setSelectedOption] = useState([linkOptions[0]])
     const [dropDown, setDropDown] = useState(false)
 
     const addLink = () => {
         console.log("Link added")
 
         const oldId = inputFields[inputFields.length - 1].id
+        
         let newFields = { id: oldId + 1, platform: "", link: "" }
         console.log(newFields)
 
@@ -57,9 +58,15 @@ const LinksForm = () => {
 
     }
 
-    console.log(inputFields)
+    
 
+    useEffect(() => {
 
+        const linkSelection = () => {
+
+        }
+
+    }, [selectedOption])
 
 
     const variants = {
@@ -109,26 +116,28 @@ const LinksForm = () => {
 
                                             <div className={CustomDropStyles.currect_select} id='select' onClick={() => setDropDown(!dropDown)}>
 
-                                                <div>
-                                                    <img src={selectedOption.img} alt=''/>
-                                                    <p>{selectedOption.label}</p>
-                                                </div>
+                                                {selectedOption.map(selected => (
+                                                    <div key={selected.id}>
+                                                        <img src={selected.img} alt=''/>
+                                                        <p>{selected.label}</p>
+                                                    </div>
+                                                ))}
+
 
                                                 <img src='/assets/images/icon-chevron-down.svg' alt=''/>
                                             </div>
                                         </div>
 
-                                        {linkOptions.map((option, optionIndex) => (
-                                            <motion.div key={option.label} className={CustomDropStyles.drop_options_container} 
-                                            initial="closed" animate={(dropDown && index === optionIndex) ? "open" : "closed"} variants={variants}
-                                            >
-                                                <p role='button' onClick={() => { setSelectedOption(option), setDropDown(!dropDown)}} className={CustomDropStyles.drop_option}>
-                                                    <img src={option.img}/>
-                                                    {option.label}
+                                        <motion.div className={CustomDropStyles.drop_options_container} 
+                                        initial="closed" animate={dropDown ? "open" : "closed"} variants={variants}>
+                                            {linkOptions.map((option) => (
+                                                <p key={option.id} role='button' onClick={() => { setSelectedOption([option]), setDropDown(!dropDown)}} className={CustomDropStyles.drop_option}>
+                                                    <img src={option.img} alt=''/>
+                                                     {option.label}
                                                 </p>
-                                            </motion.div>
-                                        ))}
-                                        
+
+                                            ))}
+                                        </motion.div>
                                     </div>
                                 </div>
 
