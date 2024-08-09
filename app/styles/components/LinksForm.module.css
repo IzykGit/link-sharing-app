@@ -87,8 +87,13 @@
 
     height: 30rem;
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
 }
 
+.link_fields::-webkit-scrollbar {
+    display: none;
+}
 
 .linkNum_remove {
     display: flex;

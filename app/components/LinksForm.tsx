@@ -12,7 +12,7 @@ import { motion } from "framer-motion"
 
 const LinksForm = () => {
 
-    const [inputFields, setInputFields] = useState([ { platform: "", link: "" } ])
+    const [inputFields, setInputFields] = useState([ { id: 0, platform: "", link: "" } ])
     const [linkNum, setLinkNum] = useState(0)
 
     const [selectedOption, setSelectedOption] = useState(linkOptions[0])
@@ -21,7 +21,11 @@ const LinksForm = () => {
     const addLink = () => {
         console.log("Link added")
 
-        let newFields = { platform: "", link: "" }
+        let newFields = { id: linkNum + 1, platform: "", link: "" }
+
+        if(linkNum === 5) {
+            return;
+        }
 
         if(linkNum === 0) {
             setLinkNum(linkNum + 1)
@@ -74,7 +78,7 @@ const LinksForm = () => {
                         
                         {linkNum ? (
                         inputFields.map((input, index) => (
-                            <div key={input.platform} className={LinksFormStyles.new_link}>
+                            <div key={input.id} className={LinksFormStyles.new_link}>
 
                                 <div className={LinksFormStyles.linkNum_remove}>
                                     <h2><img alt='' src='/assets/images/icon-drag-and-drop.svg'/>Link #{index + 1}</h2>
@@ -102,7 +106,7 @@ const LinksForm = () => {
                                             </div>
                                         </div>
 
-                                        <motion.div className={CustomDropStyles.drop_options_container}
+                                        <motion.div className={CustomDropStyles.drop_options_container} 
                                         initial="closed" animate={dropDown ? "open" : "closed"} variants={variants}
                                         >
                                             {linkOptions.map((option, index) => (

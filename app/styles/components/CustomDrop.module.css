@@ -57,7 +57,14 @@
     height: 15rem;
 
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
 }
+
+.drop_options_container::-webkit-scrollbar {
+    display: none;
+}
+
 
 .drop_option {
     height: 2rem;
