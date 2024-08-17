@@ -1,0 +1,158 @@
+
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+    height: 4rem;
+
+    padding: 1.2rem 2rem;
+    box-sizing: border-box;
+
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.main > img {
+    height: 2rem;
+    cursor: pointer;
+}
+
+
+
+.preview {
+    height: 2.5rem;
+    width: 7.125rem;
+
+    border-radius: 0.5rem;
+    border: 0.15rem solid #633CFF;
+    background-color: transparent;
+    
+    color: #633CFF;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.preview:hover {
+    background-color: #EFEBFF;
+}
+
+
+
+
+
+
+
+.links {
+    display: flex;
+    gap: 1rem;
+
+    font-weight: 500;
+}
+
+
+
+
+.navlink:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+
+    height: 2.5rem;
+    width: 7.625rem;
+
+    border-radius: 0.8rem;
+
+    color: #737373;
+    cursor: pointer;
+}
+
+.navlink:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+
+    height: 2.5rem;
+    width: 11.6875rem;
+
+    border-radius: 0.8rem;
+
+    color: #737373;
+    cursor: pointer;
+}
+
+
+.navlink > svg {
+    height: 1.25rem;
+    fill: #737373;
+    transition: 0.4s;
+}
+
+.navlink:hover {
+    color: #633CFF;
+}
+
+.navlink:hover > svg {
+    fill: #633CFF;
+}
+
+
+
+
+
+
+
+.navlink_active {
+    background-color: #EFEBFF;
+    border: 1px solid #633CFF;
+    border-radius: 0.75rem;
+    
+    font-weight: 400;
+    color: #633CFF;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.navlink_active:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+
+    height: 2.5rem;
+    width: 7.625rem;
+
+    border-radius: 0.75rem;
+
+    color: #633CFF;
+}
+
+.navlink_active:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+
+    height: 2.5rem;
+    width: 11.6875rem;
+
+    border-radius: 0.75rem;
+
+    color: #633CFF;
+}
+
+
+.navlink_active > svg {
+    height: 1.25rem;
+    fill: #633CFF;
+    transition: 0.4s;
+}
+
