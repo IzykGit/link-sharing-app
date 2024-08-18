@@ -1,11 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
 
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import NavStyles from "../../styles/components/Navbar.module.css"
 
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
+
 const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => {
+
+    const router = useRouter()
+
+    const { data: session } = useSession()
 
     const linkIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
@@ -35,7 +42,12 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
                 <a className={steps !== 2 ? NavStyles.navlink : NavStyles.navlink_active} onClick={() => setSteps(2)}>{profileIcon}Profile Details</a>
             </nav>
 
-            <Link className={NavStyles.preview} href="/preview" >Preview</Link>
+            <div>
+                <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")} >Preview</button>
+
+                {session && <button type="button" className={NavStyles.preview} onClick={() => signOut()}>Sign Out</button>}
+            </div>
+
         </header>
     )
 }

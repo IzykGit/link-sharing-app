@@ -13,7 +13,7 @@ import { motion } from "framer-motion"
 
 import { dropDownVariants } from '../data/framerMotion';
 
-// import { setSaveLinks } from '../data/localstorage';
+import { useSession } from 'next-auth/react'
 
 
 
@@ -33,6 +33,9 @@ interface Url {
 
 
 const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Function, incrementSteps: Function }) => {
+
+    const { data: session } = useSession()
+
 
     const [inputFields, setInputFields] = useState<InputFields[]>([])
 
@@ -261,7 +264,7 @@ const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Funct
         }
 
         incrementSteps()
-        // setSaveLinks(inputFields)
+        
     }
 
 

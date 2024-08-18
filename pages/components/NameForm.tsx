@@ -4,6 +4,7 @@ import Image from 'next/image'
 import NameFormStyles from "../../styles/components/NameForm.module.css"
 
 import uploadImage from "../../public/assets/images/icon-upload-image.svg"
+import { saveShare } from '../hooks/saveProfile'
 
 const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
 
@@ -69,6 +70,9 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
         }
 
         if(firstNameError || lastNameError) return;
+
+
+        saveShare(linkInfo.firstName, linkInfo.lastName)
     }
 
     return (

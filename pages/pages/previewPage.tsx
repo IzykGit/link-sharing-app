@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-import PreviewStyles from "../styles/Preview.module.css"
+
+import PreviewStyles from "../../styles/Preview.module.css"
+
+
 
 const page = () => {
+
+    const [profile, setProfile] = useState([])
+
+
     return (
         <>
         <div className={PreviewStyles.background_div}></div>
