@@ -33,6 +33,9 @@ export default function Home() {
   const [screenWidth, setScreenWidth] = useState(1300)
 
   useEffect(() => {
+
+    if(!session || links) return;
+
     const fetchingLinks = async () => {
         const response = await getLinks()
         console.log(response.links)
@@ -40,7 +43,7 @@ export default function Home() {
     }
 
     fetchingLinks()
-}, [session])
+}, [session, links])
 
   // useEffect(() => {
 
@@ -55,13 +58,15 @@ export default function Home() {
   //   };
   // }, []); 
 
+  console.log(links)
+
   return (
     <div className={HomeStyles.wrapper}>
       <Navbar setSteps={setSteps} steps={steps}/>
       <main className={HomeStyles.links_main}>
           {screenWidth > 1275 && <EditorDisplay links={links} steps={steps} displayInfo={displayInfo} avatar={avatar}/>}
 
-          {steps === 1 && <LinksForm setLinks={setLinks} incrementSteps={incrementSteps}/>}
+          {steps === 1 && <LinksForm setLinks={setLinks} incrementSteps={incrementSteps} links={links}/>}
 
           {steps === 2 && <NameForm setDisplayInfo={setDisplayInfo} setAvatar={setAvatar}/>}
       </main>

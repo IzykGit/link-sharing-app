@@ -35,11 +35,11 @@ interface Url {
 }
 
 
-const LinksForm = ({ setLinks, incrementSteps }: { setLinks: Function, incrementSteps: Function }) => {
+const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, links: any, incrementSteps: Function }) => {
 
     const { data: session } = useSession()
 
-    const [inputFields, setInputFields] = useState<InputFields[]>([])
+    const [inputFields, setInputFields] = useState<InputFields[]>(links ? links : [])
 
     const [dropDownStates, setDropDownStates] = useState([false])
 
@@ -51,18 +51,11 @@ const LinksForm = ({ setLinks, incrementSteps }: { setLinks: Function, increment
 
     useEffect(() => {
         setLinks(inputFields)
-    }, [inputFields, setLinks])
+    }, [inputFields])
 
-
-    // recalling the fetching links here because react will not allow links to be imported from parent
     useEffect(() => {
-        const fetchingLinks = async () => {
-            const response = await getLinks()
-            setInputFields(response.links)
-        }
-    
-        fetchingLinks()
-    }, [session])
+        setInputFields(links)
+    }, [links])
 
 
     // adding new link input field

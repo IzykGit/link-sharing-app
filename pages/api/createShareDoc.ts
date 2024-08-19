@@ -1,6 +1,5 @@
 import React from 'react'
 import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
 
 const createShareDoc = async (user: any) => {
 
