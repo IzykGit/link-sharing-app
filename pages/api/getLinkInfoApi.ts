@@ -18,11 +18,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const result = await db.collection("shares").findOne(
             { userEmail: session.user?.email },
             {
-                projection: { links: 1, _id: 0}
+                projection: { firstName: 1, lastName: 1, linkEmail: 1, _id: 0 }
             }
         )
 
-        console.log(result)
         res.status(200).json(result)
     }
     catch (error) {

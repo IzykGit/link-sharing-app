@@ -1,20 +1,19 @@
 import axios from "axios";
 
-const getLinks = async () => {
+const getLinkInfo = async () => {
 
     try {
 
         const response = await axios({
             method: "GET",
-            url: "/api/getLinksApi"
+            url: "/api/getLinkInfoApi"
         })
 
-        console.log(response)
-        return response.data.links
+        return response.data
     }
     catch (error) {
         console.log(error)
     }
 }
 
-export default getLinks;
+export default getLinkInfo;

@@ -1,21 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import NameFormStyles from "../../styles/components/NameForm.module.css"
 
 import uploadImage from "../../public/assets/images/icon-upload-image.svg"
-import { saveShare } from '../../lib/saveProfile'
+import { saveLinkInfo } from '@/lib/saveLinkInfo'
 
-const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
+const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
+
+    const route = useRouter()
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [linkInfo, setLinkInfo] = useState({
-        firstName: "",
-        lastName: "",
-        email: ""
-    })
+    const [infoFields, setInfoFields] = useState(linkInfo ? linkInfo : {})
 
+    useEffect(() => {
+        setLinkInfo(infoFields)
+        console.log("setting info")
+    }, [infoFields])
+
+    useEffect(() => {
+        setInfoFields(linkInfo)
+        console.log("setting fields")
+    }, [linkInfo])
 
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
@@ -30,7 +38,7 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
 
 
     const handleTextInput = (event: any, key: string) => {
-        setLinkInfo(prevState => {
+        setInfoFields((prevState: any) => {
             return {
                 ...prevState,
                 [key]: event.target.value
@@ -40,10 +48,6 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
         setFirstNameError(false)
         setLastNameError(false)
     }
-
-    useEffect(() => {
-        setDisplayInfo(linkInfo)
-    }, [linkInfo, setDisplayInfo])
 
     useEffect(() => {
         setAvatar(file)
@@ -58,21 +62,27 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
 
 
 
-    const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        if(linkInfo.firstName === "") {
+        let hasError = false
+
+        if(infoFields.firstName === "") {
             setFirstNameError(true)
+            hasError = true;
         }
 
-        if(linkInfo.lastName === "") {
+        if(infoFields.lastName === "") {
             setLastNameError(true)
+            hasError = true;
         }
 
-        if(firstNameError || lastNameError) return;
+        if(hasError) return;
 
+        sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
 
-        saveShare(linkInfo.firstName, linkInfo.lastName)
+        await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.email)
+        .then(() => route.push("/pages/previewPage"))
     }
 
     return (
@@ -126,7 +136,7 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
                             <label htmlFor="firstname">First name*</label>
                             <div className={firstNameError ? NameFormStyles.text_input_error : NameFormStyles.text_input}>
                                 <input type="text" name="firstname" id="firstname" placeholder='e.g. John'
-                                value={linkInfo.firstName} onChange={(e) => handleTextInput(e, 'firstName')}/>
+                                value={infoFields.firstName} onChange={(e) => handleTextInput(e, 'firstName')}/>
 
                                 {firstNameError && <p className={NameFormStyles.field_error}>{"Can't be empty"}</p>}
                             </div>
@@ -138,7 +148,7 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
                             <label htmlFor="lastname">Last name*</label>
                             <div className={lastNameError ? NameFormStyles.text_input_error : NameFormStyles.text_input}>
                                 <input type="text" name="lastname" id="lastname" placeholder='e.g. Appleseed'
-                                value={linkInfo.lastName} onChange={(e) => handleTextInput(e, 'lastName')}/>
+                                value={infoFields.lastName} onChange={(e) => handleTextInput(e, 'lastName')}/>
 
                                 {lastNameError && <p className={NameFormStyles.field_error}>{"Can't be empty"}</p>}
                             </div>
@@ -151,7 +161,7 @@ const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
                             <label htmlFor="email">Email</label>
                             <div className={NameFormStyles.text_input}>
                                 <input type="email" name="email" id="email" placeholder='e.g. email@example.com'
-                                value={linkInfo.email} onChange={(e) => handleTextInput(e, 'email')}/>
+                                value={infoFields.email} onChange={(e) => handleTextInput(e, 'email')}/>
                             </div>
                             
 

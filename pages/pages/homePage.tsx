@@ -5,7 +5,8 @@ import { useSession } from 'next-auth/react'
 import EditorDisplay from '../components/EditorDisplay'
 import Navbar from '../components/Navbar'
 
-import getLinks from '../../lib/getLinks'
+import getLinks from '@/lib/getLinks'
+import getLinkInfo from '@/lib/getLinkInfo'
 
 
 import HomeStyles from "../../styles/Home.module.css"
@@ -15,60 +16,107 @@ import NameForm from '../components/NameForm'
 
 
 
-
 export default function Home() {
+
 
   const { data: session } = useSession()
 
-  const [links, setLinks] = useState([])
-  const [displayInfo, setDisplayInfo] = useState()
+
+  const [links, setLinks] = useState(null)
+  const [linkInfo, setLinkInfo] = useState()
   const [avatar, setAvatar] = useState("")
 
 
-
   const [steps, setSteps] = useState(1)
-
   const incrementSteps = () => setSteps(steps +  1)
-
-  const [screenWidth, setScreenWidth] = useState(1300)
 
   useEffect(() => {
 
-    if(!session || links) return;
-
-    const fetchingLinks = async () => {
-        const response = await getLinks()
-        console.log(response.links)
-        setLinks(response.links)
+    // checking if session is strictly null, this prevents session from being caught in the middle of a loading state
+    if(session === null) {
+      return
     }
 
-    fetchingLinks()
-}, [session, links])
+    if(links) {
+      return;
+    }
 
-  // useEffect(() => {
 
-  //   const handleResize = () => {
-  //       setScreenWidth(window.innerWidth);
-  //   };
+    // grabbing cached links
+    const cachedLinks = sessionStorage.getItem("cachedLinks")
 
-  //   window.addEventListener('resize', handleResize);
+
+    // if cached links exists, set them to the links state
+    if(cachedLinks) {
+      console.log("getting cached links")
+      setLinks(JSON.parse(cachedLinks))
+    }
+    else {
+
+      // if no cached links exists, make a fetch request to get links from db
+      const fetchingLinks = async () => {
+
+        console.log("making fetch request")
+        const response = await getLinks()
+
+        console.log(response)
+        // after links are retrieved, cache them so unnecessary are prevented
+        sessionStorage.setItem("cachedLinks", JSON.stringify(response))
+        setLinks(response)
+      }
+      fetchingLinks()
+    }
+
+    // use session
+  }, [session?.user, links])
+
+
+  useEffect(() => {
     
-  //   return () => {
-  //       window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []); 
+    // if no session return
+    if(session === null) return;
 
-  console.log(links)
+    if(linkInfo) return;
+
+    // grabbing cached info
+    const cachedInfo = sessionStorage.getItem("cachedInfo")
+
+    if(cachedInfo) {
+
+      console.log("getting cached info")
+      setLinkInfo(JSON.parse(cachedInfo))
+      return;
+
+    }
+    else {
+
+      // if no cached info exists, make a fetch request to get link info from db
+      const fetchingLinks = async () => {
+
+        console.log("making fetch request")
+
+        const response = await getLinkInfo()
+        console.log(response)
+
+        // after link info is retrieved, cache them so unnecessary are prevented
+        sessionStorage.setItem("cachedInfo", JSON.stringify(response))
+        setLinkInfo(response)
+      }
+
+      fetchingLinks()
+    }
+  }, [session])
+
 
   return (
     <div className={HomeStyles.wrapper}>
       <Navbar setSteps={setSteps} steps={steps}/>
       <main className={HomeStyles.links_main}>
-          {screenWidth > 1275 && <EditorDisplay links={links} steps={steps} displayInfo={displayInfo} avatar={avatar}/>}
+          {<EditorDisplay links={links} steps={steps} linkInfo={linkInfo} avatar={avatar}/>}
 
           {steps === 1 && <LinksForm setLinks={setLinks} incrementSteps={incrementSteps} links={links}/>}
 
-          {steps === 2 && <NameForm setDisplayInfo={setDisplayInfo} setAvatar={setAvatar}/>}
+          {steps === 2 && <NameForm setLinkInfo={setLinkInfo} setAvatar={setAvatar} linkInfo={linkInfo}/>}
       </main>
     </div>
   );

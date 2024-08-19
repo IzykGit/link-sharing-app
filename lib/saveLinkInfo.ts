@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const saveShare = async (firstName: string, lastName: string) => {
+export const saveLinkInfo = async (firstName: string, lastName: string, email: string) => {
     
     try {
 
         const response = await axios({
             method: "POST",
-            url: "/api/saveCreatedShare",
-            data: { firstName, lastName }
+            url: "/api/saveLinkInfoApi",
+            data: { firstName, lastName, email }
         })
 
         return response.data

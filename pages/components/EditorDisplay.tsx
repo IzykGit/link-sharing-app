@@ -18,21 +18,24 @@ interface Info {
     email: string
 }
 
-const EditorDisplay = ({ links, displayInfo, steps, avatar }: { links: any, displayInfo: any, steps: number, avatar: string }) => {
+const EditorDisplay = ({ links, linkInfo, steps, avatar }: { links: any, linkInfo: any, steps: number, avatar: string }) => {
 
     const [displayLinks, setDisplayLinks] = useState<Links[]>([])
 
     const [info, setInfo] = useState<Info>()
 
-    const [file, setFile] = useState("")
-
     useEffect(() => {
-        setDisplayLinks(links)
+        if(!links) {
+            return;
+        }
+        else {
+            setDisplayLinks(links)
+        }
     }, [links])
 
     useEffect(() => {
-        setInfo(displayInfo)
-    }, [displayInfo])
+        setInfo(linkInfo)
+    }, [linkInfo])
 
 
     return (
@@ -63,7 +66,7 @@ const EditorDisplay = ({ links, displayInfo, steps, avatar }: { links: any, disp
                 {!info?.email ? (
                     <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4"/>
                 ) : (
-                    <foreignObject width="237" height="44" x="35" y="214" className={EditorDisplayStyles.display_email}>{displayInfo.email}</foreignObject>
+                    <foreignObject width="237" height="44" x="35" y="214" className={EditorDisplayStyles.display_email}>{info.email}</foreignObject>
                 )}
 
 

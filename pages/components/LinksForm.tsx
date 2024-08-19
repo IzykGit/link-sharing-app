@@ -15,7 +15,7 @@ import { dropDownVariants } from '../../lib/framerMotion';
 import { useSession } from 'next-auth/react'
 
 import { updateLinks } from '../../lib/updateLinks';
-import getLinks from '../../lib/getLinks';
+
 
 
 
@@ -54,7 +54,14 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
     }, [inputFields])
 
     useEffect(() => {
-        setInputFields(links)
+        if(!links) {
+            return
+        }
+        else {
+            setInputFields(links)
+            console.log("setting fields")
+        }
+
     }, [links])
 
 
@@ -143,6 +150,7 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
                 setLinks(inputFields);
         }
 
+        // resetting errors
         setEmptyUrls([])
         setIncorrectUrls([])
     }
@@ -165,6 +173,7 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
                 setInputFields(newFields); 
         }
 
+        // resetting errors
         setEmptyUrls([])
         setIncorrectUrls([])
     }
@@ -227,9 +236,10 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
     const saveLinks = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-
+        // checking to see if any input fields are empty, is there are any empty fields, create an array of their ids
         const newEmptyUrls = inputFields.filter(input => input.url === "").map(input => ({ id: input.id }));
         
+        // checking to see if any input field urls are incorrect (does not match the platforms base url), if there are any incorrect urls, create an array of their ids
         const newIncorrectUrls = inputFields.filter(input => !linkOptions.some(option => input.url.includes(option.placeholder))).map(input => ({ id: input.id }));
 
 
@@ -264,13 +274,15 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
             return;
         }
 
-
+        // checking is a user is logged in, if not, just go to next screen
         if(!session || !session.user) {
             incrementSteps()
         }
 
+        // caching saved links
+        sessionStorage.setItem("cachedLinks", JSON.stringify(inputFields))
 
-
+        // updating saved links in database
         await updateLinks(inputFields)
         .then(incrementSteps())
 
