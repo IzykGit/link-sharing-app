@@ -10,10 +10,13 @@ import CustomDropStyles from "../../styles/components/CustomDrop.module.css";
 import { linkOptions } from '../data/options'
 
 import { motion } from "framer-motion"
-
 import { dropDownVariants } from '../data/framerMotion';
 
 import { useSession } from 'next-auth/react'
+
+import { updateLinks } from '../hooks/updateLinks';
+import getLinks from '../hooks/getLinks';
+
 
 
 
@@ -32,10 +35,9 @@ interface Url {
 }
 
 
-const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Function, incrementSteps: Function }) => {
+const LinksForm = ({ setLinks, incrementSteps }: { setLinks: Function, incrementSteps: Function }) => {
 
     const { data: session } = useSession()
-
 
     const [inputFields, setInputFields] = useState<InputFields[]>([])
 
@@ -48,13 +50,19 @@ const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Funct
 
 
     useEffect(() => {
-        setDisplayLinks(inputFields)
+        setLinks(inputFields)
+    }, [inputFields, setLinks])
 
 
-    }, [inputFields, setDisplayLinks])
-
-
-
+    // recalling the fetching links here because react will not allow links to be imported from parent
+    useEffect(() => {
+        const fetchingLinks = async () => {
+            const response = await getLinks()
+            setInputFields(response.links)
+        }
+    
+        fetchingLinks()
+    }, [session])
 
 
     // adding new link input field
@@ -139,7 +147,7 @@ const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Funct
                 setInputFields(newFields); 
 
                 // setting display links in handleInputChange function so links can be updated in real time on the editorDisplay
-                setDisplayLinks(inputFields);
+                setLinks(inputFields);
         }
 
         setEmptyUrls([])
@@ -223,7 +231,7 @@ const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Funct
 
 
 
-    const saveLinks = (event: React.FormEvent<HTMLFormElement>) => {
+    const saveLinks = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
 
@@ -263,10 +271,20 @@ const LinksForm = ({ setDisplayLinks, incrementSteps }: { setDisplayLinks: Funct
             return;
         }
 
-        incrementSteps()
-        
-    }
 
+        if(!session || !session.user) {
+            incrementSteps()
+        }
+
+
+
+        await updateLinks(inputFields)
+        .then(incrementSteps())
+
+
+        
+        return;
+    }
 
     return (
         <section className={LinksFormStyles.form_section}>

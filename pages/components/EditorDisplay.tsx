@@ -18,17 +18,17 @@ interface Info {
     email: string
 }
 
-const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLinks: any, displayInfo: any, steps: number, avatar: string }) => {
+const EditorDisplay = ({ links, displayInfo, steps, avatar }: { links: any, displayInfo: any, steps: number, avatar: string }) => {
 
-    const [links, setLinks] = useState<Links[]>([])
+    const [displayLinks, setDisplayLinks] = useState<Links[]>([])
 
     const [info, setInfo] = useState<Info>()
 
     const [file, setFile] = useState("")
 
     useEffect(() => {
-        setLinks(displayLinks)
-    }, [displayLinks])
+        setDisplayLinks(links)
+    }, [links])
 
     useEffect(() => {
         setInfo(displayInfo)
@@ -56,7 +56,7 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                     <rect width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8"/>
                 ) : (
                     <foreignObject width="160" height="32" x="73.5" y="185" className={EditorDisplayStyles.display_name}>
-                        {displayInfo.firstName} {displayInfo.lastName}
+                        {info.firstName} {info.lastName}
                     </foreignObject>
                 )}
                 
@@ -67,20 +67,20 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                 )}
 
 
-                {(steps === 1 || links[0]) && (
+                {(steps === 1 || displayLinks[0]) && (
                     <>
                     <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8"/>
                     
-                    {links[0] && (
+                    {displayLinks[0] && (
                         
                         <foreignObject width="237" height="44" x="35" y="278">
 
-                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: links[0].color }}
-                            onClick={() => window.open(links[0].url, "_blank")}>
+                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[0].color }}
+                            onClick={() => window.open(displayLinks[0].url, "_blank")}>
 
                                 <div className={EditorDisplayStyles.platform}>
-                                    <Image src={links[0].img} alt='' width={12.5} height={14.5}/>
-                                    <p>{links[0].platform}</p>
+                                    <Image src={displayLinks[0].img} alt='' width={12.5} height={14.5}/>
+                                    <p>{displayLinks[0].platform}</p>
                                 </div>
 
 
@@ -93,20 +93,20 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                     </>
                 )}
 
-                {(steps === 1 || links[1]) && (
+                {(steps === 1 || displayLinks[1]) && (
                     <>
                     <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8"/>
 
-                    {links[1] && (
+                    {displayLinks[1] && (
                         
                         <foreignObject width="237" height="44" x="35" y="342">
 
-                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: links[1].color }}
-                            onClick={() => window.open(links[1].url, "_blank")}>
+                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[1].color }}
+                            onClick={() => window.open(displayLinks[1].url, "_blank")}>
 
                                 <div className={EditorDisplayStyles.platform}>
-                                    <Image src={links[1].img} alt='' width={12.5} height={14.5}/>
-                                    <p>{links[1].platform}</p>
+                                    <Image src={displayLinks[1].img} alt='' width={12.5} height={14.5}/>
+                                    <p>{displayLinks[1].platform}</p>
                                 </div>
 
 
@@ -119,19 +119,19 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                     </>
                 )}
                 
-                {(steps === 1 || links[2]) && (
+                {(steps === 1 || displayLinks[2]) && (
                     <>
                     <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8"/>
-                    {links[2] && (
+                    {displayLinks[2] && (
                     
                         <foreignObject width="237" height="44" x="35" y="406">
 
-                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: links[2].color }}
-                            onClick={() => window.open(links[2].url, "_blank")}>
+                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[2].color }}
+                            onClick={() => window.open(displayLinks[2].url, "_blank")}>
 
                                 <div className={EditorDisplayStyles.platform}>
-                                    <Image src={links[2].img} alt='' width={12.5} height={14.5}/>
-                                    <p>{links[2].platform}</p>
+                                    <Image src={displayLinks[2].img} alt='' width={12.5} height={14.5}/>
+                                    <p>{displayLinks[2].platform}</p>
                                 </div>
 
 
@@ -145,19 +145,19 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                     </>
                 )}
 
-                {(steps === 1 || links[3]) && (
+                {(steps === 1 || displayLinks[3]) && (
                     <>
                     <rect width="237" height="44" x="35" y="470" fill="#EEE" rx="8"/>
-                    {links[3] && (
+                    {displayLinks[3] && (
 
                     <foreignObject width="237" height="44" x="35" y="470">
 
-                        <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: links[3].color }}
-                        onClick={() => window.open(links[3].url, "_blank")}>
+                        <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[3].color }}
+                        onClick={() => window.open(displayLinks[3].url, "_blank")}>
 
                             <div className={EditorDisplayStyles.platform}>
-                                <Image src={links[3].img} alt='' width={12.5} height={14.5}/>
-                                <p>{links[3].platform}</p>
+                                <Image src={displayLinks[3].img} alt='' width={12.5} height={14.5}/>
+                                <p>{displayLinks[3].platform}</p>
                             </div>
 
 
@@ -171,18 +171,18 @@ const EditorDisplay = ({ displayLinks, displayInfo, steps, avatar }: { displayLi
                 )}
                 
 
-                {(steps === 1 || links[4]) && (
+                {(steps === 1 || displayLinks[4]) && (
                     <>
                     <rect width="237" height="44" x="35" y="534" fill="#EEE" rx="8"/>
-                    {links[4] && (
+                    {displayLinks[4] && (
                         <foreignObject width="237" height="44" x="35" y="534">
 
-                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: links[4].color }}
-                            onClick={() => window.location.href = links[4].url}>
+                            <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[4].color }}
+                            onClick={() => window.location.href = displayLinks[4].url}>
 
                                 <div className={EditorDisplayStyles.platform}>
-                                    <Image src={links[4].img} alt='' width={12.5} height={14.5}/>
-                                    <p>{links[4].platform}</p>
+                                    <Image src={displayLinks[4].img} alt='' width={12.5} height={14.5}/>
+                                    <p>{displayLinks[4].platform}</p>
                                 </div>
 
 
