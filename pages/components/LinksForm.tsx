@@ -7,15 +7,15 @@ import Image from 'next/image';
 import LinksFormStyles from "../../styles/components/LinksForm.module.css"
 import CustomDropStyles from "../../styles/components/CustomDrop.module.css";
 
-import { linkOptions } from '../data/options'
+import { linkOptions } from '../../lib/options'
 
 import { motion } from "framer-motion"
-import { dropDownVariants } from '../data/framerMotion';
+import { dropDownVariants } from '../../lib/framerMotion';
 
 import { useSession } from 'next-auth/react'
 
-import { updateLinks } from '../hooks/updateLinks';
-import getLinks from '../hooks/getLinks';
+import { updateLinks } from '../../lib/updateLinks';
+import getLinks from '../../lib/getLinks';
 
 
 

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import NameFormStyles from "../../styles/components/NameForm.module.css"
 
 import uploadImage from "../../public/assets/images/icon-upload-image.svg"
-import { saveShare } from '../hooks/saveProfile'
+import { saveShare } from '../../lib/saveProfile'
 
 const NameForm = ({ setDisplayInfo, setAvatar }: any) => {
 

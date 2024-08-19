@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import EditorDisplay from '../components/EditorDisplay'
 import Navbar from '../components/Navbar'
 
-import getLinks from '../hooks/getLinks'
+import getLinks from '../../lib/getLinks'
 
 
 import HomeStyles from "../../styles/Home.module.css"
