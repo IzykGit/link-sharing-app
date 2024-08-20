@@ -33,9 +33,11 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
 
     const handleSignOut = () => {
 
-
+        // clearing session storage to make sure cache does not persist after logout
         sessionStorage.clear()
 
+
+        // signing out and redirecting back to login page
         signOut({ redirect: false })
         .then(() => {
             router.push("/");

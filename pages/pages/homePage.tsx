@@ -30,6 +30,9 @@ export default function Home() {
   const [steps, setSteps] = useState(1)
   const incrementSteps = () => setSteps(steps +  1)
 
+
+
+  // grabbing links
   useEffect(() => {
 
 
@@ -73,6 +76,10 @@ export default function Home() {
   }, [session])
 
 
+
+
+
+  // grabbing link info
   useEffect(() => {
     // if no session return
     if (!session) {
@@ -87,7 +94,7 @@ export default function Home() {
     // grabbing cached info
     const cachedInfo = sessionStorage.getItem("cachedInfo")
 
-
+    // if cached information exists, set info to the info state
     if(cachedInfo) {
 
       console.log("getting cached info")
