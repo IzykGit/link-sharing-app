@@ -122,6 +122,8 @@ export default function Home() {
     }
   }, [session])
 
+  
+
   useEffect(() => {
 
     if(avatar) return
