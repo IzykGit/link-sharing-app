@@ -1,17 +1,20 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+
 
 import { useSession } from 'next-auth/react'
 
 import NameFormStyles from "../../styles/components/NameForm.module.css"
 
-import uploadImage from "../../public/assets/images/icon-upload-image.svg"
+import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
+
 import { saveLinkInfo } from '@/lib/saveLinkInfo'
+import { uploadAvatar } from '@/lib/uploadAvatar'
+
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
-
-    const route = useRouter()
 
     const { data: session } = useSession()
 
@@ -29,7 +32,8 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
 
-    const [file, setFile] = useState("")
+    const [file, setFile] = useState(null)
+    const [fileURL, setFileURL] = useState("")
 
     
 
@@ -59,9 +63,12 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
     const handleImageSet = (event: any) => {
         const selectedFile = event.target.files?.[0];
+
         if (selectedFile) {
             const fileURL = URL.createObjectURL(selectedFile);
-            setFile(fileURL);
+            setFile(selectedFile);
+
+            setFileURL(fileURL)
             setAvatar(fileURL);
         }
     }
@@ -87,6 +94,9 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
         if(session === null) return;
 
+        if(file) {
+            await uploadAvatar(file)
+        }
 
         sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
         await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.email)
@@ -97,7 +107,8 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
         <section className={NameFormStyles.NameForm}>
 
             <form className={NameFormStyles.name_form} onSubmit={handleSave}>
-                <input type="file" name="inputImage" id="inputImage" style={{ display: "none" }} ref={inputRef} onChange={handleImageSet}/>
+                <input type="file" name="inputImage" id="inputImage" style={{ display: "none" }} ref={inputRef}
+                accept='image/png, image/jpg' onChange={handleImageSet}/>
 
                 <div className={NameFormStyles.form_content}>
 
@@ -116,16 +127,16 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
                                 {!file ? (
                                     <>
-                                    <Image src={uploadImage} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
+                                    <Image src={uploadIcon} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
                                     <p>+ Upload Image</p>
                                     </>
                                 ) : (
                                     <>
                                     <div className={NameFormStyles.change_image}>
-                                        <Image src={uploadImage} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
+                                        <Image src={uploadIcon} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
                                         <p>+ Upload Image</p>
                                     </div>
-                                    <Image src={file} alt='' width={193} height={193} className={NameFormStyles.uploaded_image}/>
+                                    <Image src={fileURL} alt='' width={193} height={193} className={NameFormStyles.uploaded_image}/>
                                     </>
                                 )}
                             </div>

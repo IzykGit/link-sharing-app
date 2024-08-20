@@ -172,6 +172,7 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
                 newFields[fieldIndex].platform = platform;
                 newFields[fieldIndex].img = imageSrc
                 newFields[fieldIndex].color = color
+                newFields[fieldIndex].url = ""
                 setInputFields(newFields); 
         }
 
