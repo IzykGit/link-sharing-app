@@ -11,7 +11,7 @@ import { signOut } from 'next-auth/react'
 const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => {
 
     const router = useRouter()
-
+    
     const { data: session } = useSession()
 
     const linkIcon = (
@@ -31,6 +31,20 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
         window.location.reload()
     }
 
+    const handleSignOut = () => {
+
+
+        sessionStorage.clear()
+
+        signOut({ redirect: false })
+        .then(() => {
+            router.push("/");
+        })
+        .catch((error) => {
+            console.error("Error during sign-out:", error);
+        });
+    }
+
     return (
         <header className={NavStyles.main}>
             
@@ -45,7 +59,7 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
             <div>
                 <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")} >Preview</button>
 
-                {session && <button type="button" className={NavStyles.preview} onClick={() => signOut()}>Sign Out</button>}
+                {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
             </div>
 
         </header>

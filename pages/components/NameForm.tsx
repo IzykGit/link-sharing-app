@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+import { useSession } from 'next-auth/react'
+
 import NameFormStyles from "../../styles/components/NameForm.module.css"
 
 import uploadImage from "../../public/assets/images/icon-upload-image.svg"
@@ -10,6 +12,8 @@ import { saveLinkInfo } from '@/lib/saveLinkInfo'
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
     const route = useRouter()
+
+    const { data: session } = useSession()
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,15 +24,14 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
         console.log("setting info")
     }, [infoFields])
 
-    useEffect(() => {
-        setInfoFields(linkInfo)
-        console.log("setting fields")
-    }, [linkInfo])
+
 
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
 
     const [file, setFile] = useState("")
+
+    
 
     const handleImageClick = () => {
         if(inputRef.current) {
@@ -49,15 +52,18 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
         setLastNameError(false)
     }
 
-    useEffect(() => {
-        setAvatar(file)
-    }, [file])
+
 
 
 
 
     const handleImageSet = (event: any) => {
-        setFile(URL.createObjectURL(event.target.files[0]))
+        const selectedFile = event.target.files?.[0];
+        if (selectedFile) {
+            const fileURL = URL.createObjectURL(selectedFile);
+            setFile(fileURL);
+            setAvatar(fileURL);
+        }
     }
 
 
@@ -79,10 +85,11 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
         if(hasError) return;
 
-        sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
+        if(session === null) return;
 
+
+        sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
         await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.email)
-        .then(() => route.push("/pages/previewPage"))
     }
 
     return (
@@ -158,10 +165,10 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
                         <div className={NameFormStyles.input_divs}>
 
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="linkEmail">Email</label>
                             <div className={NameFormStyles.text_input}>
-                                <input type="email" name="email" id="email" placeholder='e.g. email@example.com'
-                                value={infoFields.email} onChange={(e) => handleTextInput(e, 'email')}/>
+                                <input type="email" name="linkEmail" id="linkEmail" placeholder='e.g. email@example.com'
+                                value={infoFields.linkEmail} onChange={(e) => handleTextInput(e, 'linkEmail')}/>
                             </div>
                             
 

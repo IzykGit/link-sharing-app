@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const session = await getServerSession(req, res, authOptions)
-    if(!session) return;
+    if(!session) return
 
     try {
 

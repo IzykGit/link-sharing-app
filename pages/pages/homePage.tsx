@@ -32,15 +32,16 @@ export default function Home() {
 
   useEffect(() => {
 
-    // checking if session is strictly null, this prevents session from being caught in the middle of a loading state
-    if(session === null) {
-      return
-    }
 
-    if(links) {
+    // if no session return
+    if (!session) {
+      console.log('No session available');
       return;
     }
 
+    if(links !== null) {
+      return;
+    }
 
     // grabbing cached links
     const cachedLinks = sessionStorage.getItem("cachedLinks")
@@ -64,22 +65,28 @@ export default function Home() {
         sessionStorage.setItem("cachedLinks", JSON.stringify(response))
         setLinks(response)
       }
+      
       fetchingLinks()
     }
 
     // use session
-  }, [session?.user, links])
+  }, [session])
 
 
   useEffect(() => {
-    
     // if no session return
-    if(session === null) return;
+    if (!session) {
+      console.log('No session available');
+      return;
+    }
+
 
     if(linkInfo) return;
 
+
     // grabbing cached info
     const cachedInfo = sessionStorage.getItem("cachedInfo")
+
 
     if(cachedInfo) {
 
@@ -90,6 +97,7 @@ export default function Home() {
     }
     else {
 
+      console.log("in else statement")
       // if no cached info exists, make a fetch request to get link info from db
       const fetchingLinks = async () => {
 
@@ -107,6 +115,21 @@ export default function Home() {
     }
   }, [session])
 
+  useEffect(() => {
+
+    if(avatar) return
+
+    const cachedAvatar = sessionStorage.getItem("cachedAvatar");
+
+    if(cachedAvatar) {
+
+      console.log("getting cached avatar")
+      setAvatar(cachedAvatar)
+      return;
+
+    }
+  }, [session])
+
 
   return (
     <div className={HomeStyles.wrapper}>
@@ -116,7 +139,7 @@ export default function Home() {
 
           {steps === 1 && <LinksForm setLinks={setLinks} incrementSteps={incrementSteps} links={links}/>}
 
-          {steps === 2 && <NameForm setLinkInfo={setLinkInfo} setAvatar={setAvatar} linkInfo={linkInfo}/>}
+          {steps === 2 && <NameForm setLinkInfo={setLinkInfo} setAvatar={setAvatar} linkInfo={linkInfo} avatar={avatar} />}
       </main>
     </div>
   );

@@ -23,7 +23,7 @@ export const authOptions = {
           else {
             console.log("not new user")
           }
-        }
+        },
     },
     callbacks: {
         async redirect({ url, baseUrl }: any) {

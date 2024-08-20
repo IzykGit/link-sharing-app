@@ -50,18 +50,20 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
 
 
     useEffect(() => {
+        if(links === null) {
+            return
+        }
         setLinks(inputFields)
     }, [inputFields])
 
+
     useEffect(() => {
         if(!links) {
-            return
+            return;
         }
         else {
             setInputFields(links)
-            console.log("setting fields")
         }
-
     }, [links])
 
 
@@ -275,8 +277,9 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
         }
 
         // checking is a user is logged in, if not, just go to next screen
-        if(!session || !session.user) {
+        if(session === null || !session.user) {
             incrementSteps()
+            return;
         }
 
         // caching saved links

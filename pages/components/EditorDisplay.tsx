@@ -15,7 +15,7 @@ interface Links {
 interface Info {
     firstName: string,
     lastName: string,
-    email: string
+    linkEmail: string
 }
 
 const EditorDisplay = ({ links, linkInfo, steps, avatar }: { links: any, linkInfo: any, steps: number, avatar: string }) => {
@@ -63,10 +63,10 @@ const EditorDisplay = ({ links, linkInfo, steps, avatar }: { links: any, linkInf
                     </foreignObject>
                 )}
                 
-                {!info?.email ? (
+                {!info?.linkEmail ? (
                     <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4"/>
                 ) : (
-                    <foreignObject width="237" height="44" x="35" y="214" className={EditorDisplayStyles.display_email}>{info.email}</foreignObject>
+                    <foreignObject width="237" height="44" x="35" y="214" className={EditorDisplayStyles.display_email}>{info.linkEmail}</foreignObject>
                 )}
 
 

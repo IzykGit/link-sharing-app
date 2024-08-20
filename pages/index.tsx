@@ -9,7 +9,7 @@ const index = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if(!session) {
+    if(!session || !session.user) {
       router.push("/auth/logIn")
     }
     else {
