@@ -18,7 +18,7 @@ const page = () => {
 
     const [linkInfo, setLinkInfo] = useState()
     const [links, setLinks] = useState()
-    const [avatar, setAvatar] = useState()
+    const [avatar, setAvatar] = useState("")
 
     console.log(links)
     console.log(linkInfo)

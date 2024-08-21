@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
@@ -144,6 +145,41 @@ export default function Home() {
 
       fetchingLinks()
     }
+  }, [session])
+
+
+
+
+  useEffect(() => {
+
+    // if no session, check for local info and return
+    if (!session) {
+      console.log('No session available');
+    
+      const localAvatar = localStorage.getItem("locallyStoredAvatar")
+
+      if(localAvatar) {
+        console.log("getting locally stored info")
+        setAvatar(JSON.parse(localAvatar))
+        return
+      }
+
+      return;
+    }
+
+
+    // grabbing cached info
+    const cachedAvatar = sessionStorage.getItem("cachedAvatar")
+
+    // if cached information exists, set info to the info state
+    if(cachedAvatar) {
+
+      console.log("getting cached avatar")
+      setAvatar(JSON.parse(cachedAvatar))
+      return;
+
+    }
+
   }, [session])
 
   

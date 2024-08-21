@@ -13,7 +13,7 @@ import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 import { saveLinkInfo } from '@/lib/saveLinkInfo'
 
 
-const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
+const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: any) => {
 
     const { data: session } = useSession()
 
@@ -30,10 +30,6 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
-
-    const [file, setFile] = useState("")
-    const [fileURL, setFileURL] = useState("")
-
     
 
     const handleImageClick = () => {
@@ -64,18 +60,15 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
         const selectedFile = event.target.files?.[0];
 
         if (selectedFile) {
-            const fileURL = URL.createObjectURL(selectedFile);
-            
+
             const reader = new FileReader()
             
             reader.onloadend = () => {
                 const base64 = reader.result as string;
-                setFile(base64)
+                setAvatar(base64)
             }
             reader.readAsDataURL(selectedFile)
 
-            setFileURL(fileURL)
-            setAvatar(fileURL);
         }
     }
 
@@ -101,12 +94,13 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
         if(session === null || !session.user) {
             localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields));
 
-            if(file) {
-                localStorage.setItem("locallyStoredAvatar", JSON.stringify(file))
+            if(avatar) {
+                localStorage.setItem("locallyStoredAvatar", JSON.stringify(avatar))
             }
             return;
         }
 
+        sessionStorage.setItem("cachedAvatar", JSON.stringify(avatar))
         sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
         await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.email)
     }
@@ -134,7 +128,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
                             <div className={NameFormStyles.image_input} role='button' onClick={handleImageClick}>
 
-                                {!file ? (
+                                {!avatar ? (
                                     <>
                                     <Image src={uploadIcon} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
                                     <p>+ Upload Image</p>
@@ -145,7 +139,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
                                         <Image src={uploadIcon} alt="" width={40} height={40} className={NameFormStyles.default_image}/>
                                         <p>+ Upload Image</p>
                                     </div>
-                                    <Image src={fileURL} alt='' width={193} height={193} className={NameFormStyles.uploaded_image}/>
+                                    <Image src={avatar} alt='' width={193} height={193} className={NameFormStyles.uploaded_image}/>
                                     </>
                                 )}
                             </div>
