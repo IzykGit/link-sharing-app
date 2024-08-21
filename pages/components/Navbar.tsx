@@ -60,7 +60,7 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
             </nav>
 
             <div>
-                <button type='button' className={NavStyles.preview} >Preview</button>
+                <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")}>Preview</button>
 
                 {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
             </div>

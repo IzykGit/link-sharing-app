@@ -92,8 +92,8 @@ export default function Home() {
 
   // grabbing link info
   useEffect(() => {
-    // if no session return
-    // if no session, check for local links and return
+
+    // if no session, check for local info and return
     if (!session) {
       console.log('No session available');
       

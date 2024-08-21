@@ -31,7 +31,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
 
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState("")
     const [fileURL, setFileURL] = useState("")
 
     
@@ -60,12 +60,19 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
 
 
-    const handleImageSet = (event: any) => {
+    const handleImageSet = async (event: any) => {
         const selectedFile = event.target.files?.[0];
 
         if (selectedFile) {
             const fileURL = URL.createObjectURL(selectedFile);
-            setFile(selectedFile);
+            
+            const reader = new FileReader()
+            
+            reader.onloadend = () => {
+                const base64 = reader.result as string;
+                setFile(base64)
+            }
+            reader.readAsDataURL(selectedFile)
 
             setFileURL(fileURL)
             setAvatar(fileURL);
@@ -77,22 +84,26 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
     const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        let hasError = false
+        let hasError = false;
 
         if(infoFields.firstName === "") {
-            setFirstNameError(true)
+            setFirstNameError(true);
             hasError = true;
         }
 
         if(infoFields.lastName === "") {
-            setLastNameError(true)
+            setLastNameError(true);
             hasError = true;
         }
 
         if(hasError) return;
 
         if(session === null || !session.user) {
-            localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields))
+            localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields));
+
+            if(file) {
+                localStorage.setItem("locallyStoredAvatar", JSON.stringify(file))
+            }
             return;
         }
 
