@@ -36,9 +36,20 @@ export default function Home() {
   useEffect(() => {
 
 
-    // if no session return
+    // if no session, check for local links and return
     if (!session) {
       console.log('No session available');
+      
+
+      const localLinks = localStorage.getItem("locallyStoredLinks")
+
+      if(localLinks) {
+        console.log("getting locally stored links")
+        setLinks(JSON.parse(localLinks))
+        return
+      }
+
+
       return;
     }
 
@@ -82,10 +93,23 @@ export default function Home() {
   // grabbing link info
   useEffect(() => {
     // if no session return
+    // if no session, check for local links and return
     if (!session) {
       console.log('No session available');
+      
+
+      const localInfo = localStorage.getItem("locallyStoredInfo")
+
+      if(localInfo) {
+        console.log("getting locally stored info")
+        setLinkInfo(JSON.parse(localInfo))
+        return
+      }
+
+
       return;
     }
+
 
 
     if(linkInfo) return;
@@ -124,25 +148,10 @@ export default function Home() {
 
   
 
-  useEffect(() => {
-
-    if(avatar) return
-
-    const cachedAvatar = sessionStorage.getItem("cachedAvatar");
-
-    if(cachedAvatar) {
-
-      console.log("getting cached avatar")
-      setAvatar(cachedAvatar)
-      return;
-
-    }
-  }, [session])
-
 
   return (
     <div className={HomeStyles.wrapper}>
-      <Navbar setSteps={setSteps} steps={steps}/>
+      <Navbar setSteps={setSteps} steps={steps} linkInfo={linkInfo}/>
       <main className={HomeStyles.links_main}>
           {<EditorDisplay links={links} steps={steps} linkInfo={linkInfo} avatar={avatar}/>}
 

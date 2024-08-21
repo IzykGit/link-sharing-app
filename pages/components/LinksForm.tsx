@@ -277,11 +277,16 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
             return;
         }
 
-        // checking is a user is logged in, if not, just go to next screen
-        if(session === null || !session.user) {
+        // checking is a user is logged in, if not, store the links locally and move to next screen
+        if(!session || !session.user) {
+            localStorage.setItem("locallyStoredLinks", JSON.stringify(inputFields))
             incrementSteps()
             return;
         }
+
+
+
+
 
         // caching saved links
         sessionStorage.setItem("cachedLinks", JSON.stringify(inputFields))

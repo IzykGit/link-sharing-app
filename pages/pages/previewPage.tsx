@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 
 import PreviewStyles from "../../styles/Preview.module.css"
@@ -6,9 +7,7 @@ import PreviewStyles from "../../styles/Preview.module.css"
 
 
 const page = () => {
-
-    const [profile, setProfile] = useState([])
-
+    
 
     return (
         <>

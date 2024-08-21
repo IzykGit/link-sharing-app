@@ -8,11 +8,11 @@ import NavStyles from "../../styles/components/Navbar.module.css"
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 
-const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => {
+const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Number, linkInfo: any } ) => {
+
+    const { data: session } = useSession()
 
     const router = useRouter()
-    
-    const { data: session } = useSession()
 
     const linkIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
@@ -47,6 +47,7 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
         });
     }
 
+
     return (
         <header className={NavStyles.main}>
             
@@ -59,7 +60,7 @@ const Navbar = ({ setSteps, steps }: { setSteps: Function, steps: Number } ) => 
             </nav>
 
             <div>
-                <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")} >Preview</button>
+                <button type='button' className={NavStyles.preview} >Preview</button>
 
                 {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
             </div>

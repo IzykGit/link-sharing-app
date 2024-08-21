@@ -11,7 +11,6 @@ import NameFormStyles from "../../styles/components/NameForm.module.css"
 import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 
 import { saveLinkInfo } from '@/lib/saveLinkInfo'
-import { uploadAvatar } from '@/lib/uploadAvatar'
 
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
@@ -92,10 +91,9 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar }: any) => {
 
         if(hasError) return;
 
-        if(session === null) return;
-
-        if(file) {
-            await uploadAvatar(file)
+        if(session === null || !session.user) {
+            localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields))
+            return;
         }
 
         sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
