@@ -38,7 +38,7 @@ export default function Home() {
 
 
   const [links, setLinks] = useState<Links | null>(null)
-  const [linkInfo, setLinkInfo] = useState({ firstName: "", lastName: "", linkEmail: "" })
+  const [linkInfo, setLinkInfo] = useState<Info | null>(null)
   const [avatar, setAvatar] = useState<string>("")
 
 

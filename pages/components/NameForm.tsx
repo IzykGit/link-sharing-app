@@ -13,13 +13,13 @@ import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 import { saveLinkInfo } from '@/lib/saveLinkInfo'
 
 
-const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: any) => {
+const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: Function, linkInfo: any, setAvatar: Function, avatar: string }) => {
 
     const { data: session } = useSession()
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [infoFields, setInfoFields] = useState(linkInfo)
+    const [infoFields, setInfoFields] = useState(linkInfo ? linkInfo : { firstName: "", lastName: "", linkEmail: ""})
 
     useEffect(() => {
         setLinkInfo(infoFields)
