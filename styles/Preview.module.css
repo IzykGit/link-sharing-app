@@ -22,3 +22,18 @@
     align-items: center;
     justify-content: center;
 }
+
+
+.content_card {
+    width: 21.8125rem;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: white;
+
+    padding: 3rem 3.5rem;
+}

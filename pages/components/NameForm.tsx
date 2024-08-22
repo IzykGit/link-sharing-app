@@ -19,7 +19,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: any) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [infoFields, setInfoFields] = useState(linkInfo ? linkInfo : {})
+    const [infoFields, setInfoFields] = useState(linkInfo)
 
     useEffect(() => {
         setLinkInfo(infoFields)
@@ -102,7 +102,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: any) => {
 
         sessionStorage.setItem("cachedAvatar", JSON.stringify(avatar))
         sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
-        await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.email)
+        await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.linkEmail)
     }
 
     return (

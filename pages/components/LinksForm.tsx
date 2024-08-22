@@ -49,12 +49,6 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
     const [incorrectUrls, setIncorrectUrls] = useState<Url[]>([])
 
 
-    useEffect(() => {
-        if(links === null) {
-            return
-        }
-        setLinks(inputFields)
-    }, [inputFields])
 
 
     useEffect(() => {
@@ -65,6 +59,8 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
             setInputFields(links)
         }
     }, [links])
+
+
 
 
     // adding new link input field

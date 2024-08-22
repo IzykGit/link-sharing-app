@@ -161,7 +161,6 @@ const page = () => {
         </header>
         <main className={PreviewStyles.main}>
             <div className={PreviewStyles.content_card}>
-                <p>content</p>
                 <Image alt="" width={50} height={50} src={avatar}/>
             </div>
         </main>

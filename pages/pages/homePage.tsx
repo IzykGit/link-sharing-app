@@ -17,15 +17,29 @@ import NameForm from '../components/NameForm'
 
 
 
+interface Links {
+  id: number,
+  platform: string,
+  url: string,
+  img: string,
+  color: string
+}
+
+interface Info {
+  firstName: string,
+  lastName: string,
+  linkEmail: string
+}
+
 export default function Home() {
 
 
   const { data: session } = useSession()
 
 
-  const [links, setLinks] = useState(null)
-  const [linkInfo, setLinkInfo] = useState()
-  const [avatar, setAvatar] = useState("")
+  const [links, setLinks] = useState<Links | null>(null)
+  const [linkInfo, setLinkInfo] = useState({ firstName: "", lastName: "", linkEmail: "" })
+  const [avatar, setAvatar] = useState<string>("")
 
 
   const [steps, setSteps] = useState(1)
