@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import { useSession } from 'next-auth/react';
 
-import { DetermineInfo } from '../hooks/determineInfo';
-import { DetermineLinks } from '../hooks/determineLinks';
-import { DetermineAvatar } from '../hooks/determineAvatar';
+import DetermineInfo from '../hooks/determineInfo';
+import DetermineLinks from '../hooks/determineLinks';
+import DetermineAvatar from '../hooks/determineAvatar';
 
 
 const Shareable = () => {
@@ -26,7 +27,12 @@ const Shareable = () => {
     
 
     return (
-        <div>linkInfo</div>
+        <div>
+            <Image src={avatar} alt="" width={164} height={164}/>
+            <h1>{linkInfo.firstName}</h1>
+
+            <p>{links[0].platform}</p>
+        </div>
     )
 }
 

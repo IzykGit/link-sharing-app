@@ -8,9 +8,9 @@ import { useSession } from 'next-auth/react';
 
 import PreviewStyles from "../../styles/Preview.module.css"
 
-import { DetermineInfo } from '../hooks/determineInfo';
-import { DetermineLinks } from '../hooks/determineLinks';
-import { DetermineAvatar } from '../hooks/determineAvatar';
+import DetermineInfo from '../hooks/determineInfo';
+import DetermineLinks from '../hooks/determineLinks';
+import DetermineAvatar from '../hooks/determineAvatar';
 
 
 const Preview = () => {

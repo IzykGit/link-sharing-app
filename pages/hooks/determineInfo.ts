@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import getLinkInfo from "@/lib/getLinkInfo";
 
 
-export const DetermineInfo = (session: any) => {
+const DetermineInfo = (session: any) => {
 
 
     const [linkInfo, setLinkInfo] = useState({ firstName: "", lastName: "", linkEmail: "" })
@@ -68,3 +68,5 @@ export const DetermineInfo = (session: any) => {
 
     return linkInfo
 }
+
+export default DetermineInfo
