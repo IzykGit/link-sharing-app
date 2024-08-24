@@ -43,7 +43,6 @@ export default function Home() {
 
 
   const [steps, setSteps] = useState(1)
-  const incrementSteps = () => setSteps(steps +  1)
 
 
 
@@ -51,7 +50,7 @@ export default function Home() {
   useEffect(() => {
 
 
-    // if no session, check for local links and return
+    // if no session, check for locally stored links and return
     if (!session) {
       console.log('No session available');
       
@@ -72,25 +71,25 @@ export default function Home() {
       return;
     }
 
-    // grabbing cached links
+    // grabbing session stored links
     const cachedLinks = sessionStorage.getItem("cachedLinks")
 
 
-    // if cached links exists, set them to the links state
+    // if session stored links exists, set them to the links state
     if(cachedLinks) {
       console.log("getting cached links")
       setLinks(JSON.parse(cachedLinks))
     }
     else {
 
-      // if no cached links exists, make a fetch request to get links from db
+      // if no session links exists, make a fetch request to get links from db
       const fetchingLinks = async () => {
 
         console.log("making fetch request")
         const response = await getLinks()
 
         console.log(response)
-        // after links are retrieved, cache them so unnecessary are prevented
+        // after links are retrieved, store them so unnecessary are prevented
         sessionStorage.setItem("cachedLinks", JSON.stringify(response))
         setLinks(response)
       }
@@ -108,7 +107,7 @@ export default function Home() {
   // grabbing link info
   useEffect(() => {
 
-    // if no session, check for local info and return
+    // if no session, check for locally stored info and return
     if (!session) {
       console.log('No session available');
       
@@ -130,10 +129,10 @@ export default function Home() {
     if(linkInfo) return;
 
 
-    // grabbing cached info
+    // grabbing session stored info
     const cachedInfo = sessionStorage.getItem("cachedInfo")
 
-    // if cached information exists, set info to the info state
+    // if session stored information exists, set info to the info state
     if(cachedInfo) {
 
       console.log("getting cached info")
@@ -144,7 +143,7 @@ export default function Home() {
     else {
 
       console.log("in else statement")
-      // if no cached info exists, make a fetch request to get link info from db
+      // if no session stored info exists, make a fetch request to get link info from db
       const fetchingLinks = async () => {
 
         console.log("making fetch request")
@@ -152,7 +151,7 @@ export default function Home() {
         const response = await getLinkInfo()
         console.log(response)
 
-        // after link info is retrieved, cache them so unnecessary are prevented
+        // after link info is retrieved, store them so unnecessary fetches are prevented
         sessionStorage.setItem("cachedInfo", JSON.stringify(response))
         setLinkInfo(response)
       }
@@ -166,7 +165,7 @@ export default function Home() {
 
   useEffect(() => {
 
-    // if no session, check for local info and return
+    // if no session, check for locally stored avatar and return
     if (!session) {
       console.log('No session available');
     
@@ -182,10 +181,10 @@ export default function Home() {
     }
 
 
-    // grabbing cached info
+    // grabbing session stored info
     const cachedAvatar = sessionStorage.getItem("cachedAvatar")
 
-    // if cached information exists, set info to the info state
+    // if stored avatar exists, set avatar to the avatar state
     if(cachedAvatar) {
 
       console.log("getting cached avatar")
@@ -201,14 +200,16 @@ export default function Home() {
 
   return (
     <div className={HomeStyles.wrapper}>
+
       <Navbar setSteps={setSteps} steps={steps} linkInfo={linkInfo}/>
       <main className={HomeStyles.links_main}>
           {<EditorDisplay links={links} steps={steps} linkInfo={linkInfo} avatar={avatar}/>}
 
-          {steps === 1 && <LinksForm setLinks={setLinks} incrementSteps={incrementSteps} links={links}/>}
+          {steps === 1 && <LinksForm setLinks={setLinks} links={links}/>}
 
           {steps === 2 && <NameForm setLinkInfo={setLinkInfo} setAvatar={setAvatar} linkInfo={linkInfo} avatar={avatar} />}
       </main>
+      
     </div>
   );
 }

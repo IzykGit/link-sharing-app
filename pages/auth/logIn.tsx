@@ -6,7 +6,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 import SignInStyles from "../../styles/SignIn.module.css";
 
-const logIn = () => {
+const LogIn = () => {
 
     const { data: session } = useSession()
     const router = useRouter();
@@ -35,4 +35,4 @@ const logIn = () => {
     )
 }
 
-export default logIn
+export default LogIn

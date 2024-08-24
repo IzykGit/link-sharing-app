@@ -114,5 +114,5 @@
 }
 
 .drop_option_selected > img {
-    filter: sepia(1) hue-rotate(205deg) brightness(1) saturate(10) invert(1);
+    filter: sepia(1) hue-rotate(205deg) brightness(1) saturate(10);
 }

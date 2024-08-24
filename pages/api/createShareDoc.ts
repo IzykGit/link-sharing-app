@@ -13,7 +13,7 @@ const createShareDoc = async (user: any) => {
           lastName: "",
           linkEmail: "",
           links: [],
-          avatarId: ""
+          avatarId: "",
         }
 
         const result = await db.collection("shares").insertOne(shareModel)

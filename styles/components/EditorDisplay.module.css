@@ -23,6 +23,11 @@
 }
 
 
+
+
+
+
+
 .foreignObject_container {
     height: 100%;
     width: 100%;
@@ -38,7 +43,13 @@
     box-sizing: border-box;
 
     cursor: pointer;
+    transition: 0.2s;
 }
+
+.foreignObject_container:hover {
+    border-radius: 0rem;
+}
+
 
 
 .platform {

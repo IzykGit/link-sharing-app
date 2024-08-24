@@ -35,15 +35,15 @@ interface Url {
 }
 
 
-const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, links: any, incrementSteps: Function }) => {
+const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
     const { data: session } = useSession()
 
     const [inputFields, setInputFields] = useState<InputFields[]>(links ? links : [])
 
-    const [dropDownStates, setDropDownStates] = useState([false])
+    const [dropDownStates, setDropDownStates] = useState<boolean[]>([])
 
-    const [draggingStates, setDraggingStates] = useState([false])
+    const [draggingStates, setDraggingStates] = useState<boolean[]>([])
 
     const [emptyUrls, setEmptyUrls] = useState<Url[]>([])
     const [incorrectUrls, setIncorrectUrls] = useState<Url[]>([])
@@ -60,8 +60,27 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
         }
     }, [links])
 
+    useEffect(() => {
+        setLinks(inputFields)
+    }, [inputFields])
 
 
+    useEffect(() => {
+
+        if(!links) return
+
+        // Only update state if necessary
+        if (links.length === dropDownStates.length || inputFields.length === 5) {
+            return
+        }
+        else {
+            setDraggingStates(Array(inputFields.length).fill(false));
+            setDropDownStates(Array(inputFields.length).fill(false));
+            console.log(dropDownStates)
+            console.log(draggingStates)
+        }
+
+    }, [dropDownStates, inputFields.length]);
 
     // adding new link input field
     const addLink = () => {
@@ -71,9 +90,12 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
         // getting number of input fields
         const fieldCount = inputFields.length;
 
-        // creating new array item for drag and dropDown states
-        setDropDownStates(prevState => [ ...prevState, false ])
-        setDraggingStates(prevState => [ ...prevState, false ])
+
+        if(inputFields.length < 5) {
+            // creating new array item for drag and dropDown states
+            setDropDownStates(prevState => [ ...prevState, false ])
+            setDraggingStates(prevState => [ ...prevState, false ])
+        }
 
 
         // if 5 input fields exist then return to prevent more being created
@@ -110,8 +132,8 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
         if(fieldCount === 1) {
 
             setInputFields([]);
-            setDropDownStates([false]);
-            setDraggingStates([false]);
+            setDropDownStates([]);
+            setDraggingStates([]);
             return;
 
         }
@@ -276,7 +298,6 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
         // checking is a user is logged in, if not, store the links locally and move to next screen
         if(!session || !session.user) {
             localStorage.setItem("locallyStoredLinks", JSON.stringify(inputFields))
-            incrementSteps()
             return;
         }
 
@@ -289,7 +310,6 @@ const LinksForm = ({ setLinks, links, incrementSteps }: { setLinks: Function, li
 
         // updating saved links in database
         await updateLinks(inputFields)
-        .then(incrementSteps())
 
 
         

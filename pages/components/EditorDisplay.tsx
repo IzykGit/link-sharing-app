@@ -66,7 +66,7 @@ const EditorDisplay = ({ links, linkInfo, steps, avatar }: { links: any, linkInf
                     
                     {displayLinks[0] && (
                         
-                        <foreignObject width="237" height="44" x="35" y="278">
+                        <foreignObject width="237" height="44" x="35" y="278" className={EditorDisplayStyles.foreignObject}>
 
                             <div className={EditorDisplayStyles.foreignObject_container} style={{ backgroundColor: displayLinks[0].color }}
                             onClick={() => window.open(displayLinks[0].url, "_blank")}>
