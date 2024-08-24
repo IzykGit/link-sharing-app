@@ -29,9 +29,9 @@ const Shareable = () => {
     return (
         <div>
             <Image src={avatar} alt="" width={164} height={164}/>
-            <h1>{linkInfo.firstName}</h1>
+            <h1>{linkInfo?.firstName}</h1>
 
-            <p>{links[0].platform}</p>
+            <p>{links[0]?.platform}</p>
         </div>
     )
 }

@@ -2,10 +2,18 @@ import { useEffect, useState } from "react";
 import getLinkInfo from "@/lib/getLinkInfo";
 
 
+interface Info {
+    firstName: string,
+    lastName: string,
+    linkEmail: string
+}
+  
+
+
 const DetermineInfo = (session: any) => {
 
 
-    const [linkInfo, setLinkInfo] = useState({ firstName: "", lastName: "", linkEmail: "" })
+    const [linkInfo, setLinkInfo] = useState<Info | null>(null)
 
     // grabbing link info
     useEffect(() => {
