@@ -10,12 +10,12 @@ import { getServerSession } from "next-auth";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const session = await getServerSession(req, res, authOptions)
-
     if(!session) return
 
     const { firstName, lastName, email } = req.body
 
     try {
+
         const client = await clientPromise;
         const db = client.db("LinkShare");
 
@@ -28,7 +28,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         )
         
         res.json("Success");
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error(error);
     }
+
 }

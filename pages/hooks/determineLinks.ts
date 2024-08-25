@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import getLinks from "@/lib/getLinks";
+import getLinks from "@/lib/hooks/getLinks";
 
 
 
@@ -44,13 +44,13 @@ const DetermineLinks = (session: any) => {
         }
 
         // grabbing stored links
-        const cachedLinks = sessionStorage.getItem("cachedLinks")
+        const sessionLinks = sessionStorage.getItem("sessionLinks")
 
 
         // if session stored links exists, set them to the links state
-        if(cachedLinks) {
+        if(sessionLinks) {
         console.log("getting cached links")
-        setLinks(JSON.parse(cachedLinks))
+        setLinks(JSON.parse(sessionLinks))
         }
         else {
 
@@ -62,7 +62,7 @@ const DetermineLinks = (session: any) => {
 
             console.log(response)
             // after links are retrieved, store them so unnecessary fetches are prevented
-            sessionStorage.setItem("cachedLinks", JSON.stringify(response))
+            sessionStorage.setItem("sessionLinks", JSON.stringify(response))
             setLinks(response)
         }
         

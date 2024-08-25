@@ -10,7 +10,7 @@ import NameFormStyles from "../../styles/components/NameForm.module.css"
 
 import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 
-import { saveLinkInfo } from '@/lib/saveLinkInfo'
+import { saveLinkInfo } from '@/lib/hooks/saveLinkInfo'
 
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: Function, linkInfo: any, setAvatar: Function, avatar: string }) => {
@@ -100,8 +100,8 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
             return;
         }
 
-        sessionStorage.setItem("cachedAvatar", JSON.stringify(avatar))
-        sessionStorage.setItem("cachedInfo", JSON.stringify(infoFields))
+        sessionStorage.setItem("sessionAvatar", JSON.stringify(avatar))
+        sessionStorage.setItem("sessionInfo", JSON.stringify(infoFields))
         await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.linkEmail)
     }
 

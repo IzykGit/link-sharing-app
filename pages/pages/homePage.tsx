@@ -6,14 +6,15 @@ import { useSession } from 'next-auth/react'
 import EditorDisplay from '../components/EditorDisplay'
 import Navbar from '../components/Navbar'
 
-import getLinks from '@/lib/getLinks'
-import getLinkInfo from '@/lib/getLinkInfo'
+import getLinks from '@/lib/hooks/getLinks'
+import getLinkInfo from '@/lib/hooks/getLinkInfo'
 
 
 import HomeStyles from "../../styles/Home.module.css"
 
 import LinksForm from "../components/LinksForm"
 import NameForm from '../components/NameForm'
+import DetermineLinks from '../hooks/determineLinks'
 
 
 
@@ -36,7 +37,6 @@ export default function Home() {
 
   const { data: session } = useSession()
 
-
   const [links, setLinks] = useState<Links | null>(null)
   const [linkInfo, setLinkInfo] = useState<Info | null>(null)
   const [avatar, setAvatar] = useState<string>("")
@@ -45,13 +45,12 @@ export default function Home() {
   const [steps, setSteps] = useState(1)
 
 
-
   // grabbing links
   useEffect(() => {
 
 
     // if no session, check for locally stored links and return
-    if (!session) {
+    if (session === null) {
       console.log('No session available');
       
 
@@ -108,7 +107,7 @@ export default function Home() {
   useEffect(() => {
 
     // if no session, check for locally stored info and return
-    if (!session) {
+    if (session === null) {
       console.log('No session available');
       
 
@@ -130,13 +129,13 @@ export default function Home() {
 
 
     // grabbing session stored info
-    const cachedInfo = sessionStorage.getItem("cachedInfo")
+    const sessionInfo = sessionStorage.getItem("sessionInfo")
 
     // if session stored information exists, set info to the info state
-    if(cachedInfo) {
+    if(sessionInfo) {
 
       console.log("getting cached info")
-      setLinkInfo(JSON.parse(cachedInfo))
+      setLinkInfo(JSON.parse(sessionInfo))
       return;
 
     }
@@ -152,7 +151,7 @@ export default function Home() {
         console.log(response)
 
         // after link info is retrieved, store them so unnecessary fetches are prevented
-        sessionStorage.setItem("cachedInfo", JSON.stringify(response))
+        sessionStorage.setItem("sessionInfo", JSON.stringify(response))
         setLinkInfo(response)
       }
 
@@ -166,7 +165,7 @@ export default function Home() {
   useEffect(() => {
 
     // if no session, check for locally stored avatar and return
-    if (!session) {
+    if (session === null) {
       console.log('No session available');
     
       const localAvatar = localStorage.getItem("locallyStoredAvatar")
@@ -182,13 +181,13 @@ export default function Home() {
 
 
     // grabbing session stored info
-    const cachedAvatar = sessionStorage.getItem("cachedAvatar")
+    const sessionAvatar = sessionStorage.getItem("sessionAvatar")
 
     // if stored avatar exists, set avatar to the avatar state
-    if(cachedAvatar) {
+    if(sessionAvatar) {
 
       console.log("getting cached avatar")
-      setAvatar(JSON.parse(cachedAvatar))
+      setAvatar(JSON.parse(sessionAvatar))
       return;
 
     }

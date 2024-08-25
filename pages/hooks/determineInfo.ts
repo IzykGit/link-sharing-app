@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getLinkInfo from "@/lib/getLinkInfo";
+import getLinkInfo from "@/lib/hooks/getLinkInfo";
 
 
 interface Info {
@@ -20,19 +20,19 @@ const DetermineInfo = (session: any) => {
 
         // if no session, check for locally stored info and return
         if (!session) {
-        console.log('No session available');
-            
-    
-        const localInfo = localStorage.getItem("locallyStoredInfo")
-    
-        if(localInfo) {
-            console.log("getting locally stored info")
-            setLinkInfo(JSON.parse(localInfo))
-            return
-        }
-    
-    
-        return;
+            console.log('No session available');
+                
+        
+            const localInfo = localStorage.getItem("locallyStoredInfo")
+        
+            if(localInfo) {
+                console.log("getting locally stored info")
+                setLinkInfo(JSON.parse(localInfo))
+                return
+            }
+        
+        
+            return;
         }
     
     
@@ -41,13 +41,13 @@ const DetermineInfo = (session: any) => {
     
     
         // grabbing session stored info
-        const cachedInfo = sessionStorage.getItem("cachedInfo")
+        const sessionInfo = sessionStorage.getItem("sessionInfo")
     
     // if stored information exists, set info to the info state
-        if(cachedInfo) {
+        if(sessionInfo) {
 
             console.log("getting cached info")
-            setLinkInfo(JSON.parse(cachedInfo))
+            setLinkInfo(JSON.parse(sessionInfo))
             return;
 
         }
@@ -63,7 +63,7 @@ const DetermineInfo = (session: any) => {
             console.log(response)
 
             // after link info is retrieved, store them so unnecessary fetches are prevented
-            sessionStorage.setItem("cachedInfo", JSON.stringify(response))
+            sessionStorage.setItem("sessionInfo", JSON.stringify(response))
             setLinkInfo(response)
         }
 

@@ -14,7 +14,7 @@ import { dropDownVariants } from '../../lib/framerMotion';
 
 import { useSession } from 'next-auth/react'
 
-import { updateLinks } from '../../lib/updateLinks';
+import { updateLinks } from '../../lib/hooks/updateLinks';
 
 
 
@@ -306,7 +306,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
 
         // caching saved links
-        sessionStorage.setItem("cachedLinks", JSON.stringify(inputFields))
+        sessionStorage.setItem("sessionLinks", JSON.stringify(inputFields))
 
         // updating saved links in database
         await updateLinks(inputFields)

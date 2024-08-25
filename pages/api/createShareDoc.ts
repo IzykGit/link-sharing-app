@@ -4,6 +4,7 @@ import clientPromise from '@/lib/mongodb';
 const createShareDoc = async (user: any) => {
 
     try {
+
         const client = await clientPromise;
         const db = client.db("LinkShare")
 
@@ -13,7 +14,6 @@ const createShareDoc = async (user: any) => {
           lastName: "",
           linkEmail: "",
           links: [],
-          avatarId: "",
         }
 
         const result = await db.collection("shares").insertOne(shareModel)

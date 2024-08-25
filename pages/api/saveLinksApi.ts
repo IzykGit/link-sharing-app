@@ -10,13 +10,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const session = await getServerSession(req, res, authOptions)
     if(!session) return;
-
     console.log(session)
 
 
     const inputFields = req.body
 
-    console.log(inputFields)
 
     try {
 

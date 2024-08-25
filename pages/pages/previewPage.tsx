@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import { v4 as uuidv4 } from 'uuid';
 
-import Image from 'next/image';
 
-import { useSession } from 'next-auth/react';
+
+import Cookies from "js-cookie"
+
+
+import Image from 'next/image';
 
 import PreviewStyles from "../../styles/Preview.module.css"
 
 import DetermineInfo from '../hooks/determineInfo';
 import DetermineLinks from '../hooks/determineLinks';
 import DetermineAvatar from '../hooks/determineAvatar';
+import { createTempCard } from '@/lib/hooks/createTempCard';
+
 
 
 const Preview = () => {
@@ -19,26 +25,44 @@ const Preview = () => {
 
     const router = useRouter()
 
+    const cardId  = Cookies.get("cardId")
 
     
     const linkInfo = DetermineInfo(session)
-
     const links = DetermineLinks(session)
-
     const avatar = DetermineAvatar(session)
 
 
 
     const shareCard = async () => {
+            
+        if (cardId) {
 
-        const cardId = uuidv4();
+            console.log("card id exists, do not create new temp doc")
+            const sharedCard = Buffer.from(cardId).toString('base64')
+            const genUrl = uuidv4()
+            router.push({
+                pathname: `/pages/${genUrl}`,
+                query: { sharedCard }
+            })
+            return
 
-        router.push({
-            pathname: `/pages/${cardId}`,
-            query: { cardId }
-        });
-    }
+        } 
+        else {
+
+            
+            console.log("Card id does not exist, create new temp doc")
+            await createTempCard({ links, linkInfo, avatar }).then(response => {
+                const sharedCard = Buffer.from(response.cardId).toString('base64')
+                const genUrl = uuidv4()
+                router.push({
+                    pathname: `/pages/${genUrl}`,
+                    query: { sharedCard }
+                })
+            })
+        }
     
+    }
 
     return (
         <>
