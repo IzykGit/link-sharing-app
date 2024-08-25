@@ -49,7 +49,7 @@ const DetermineLinks = (session: any) => {
 
         // if session stored links exists, set them to the links state
         if(sessionLinks) {
-        console.log("getting cached links")
+        console.log("getting session stored links")
         setLinks(JSON.parse(sessionLinks))
         }
         else {

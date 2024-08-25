@@ -21,26 +21,36 @@ import { createTempCard } from '@/lib/hooks/createTempCard';
 
 const Preview = () => {
     
+    // getting session
     const { data: session } = useSession()
 
     const router = useRouter()
 
+    // grabbing cardId cookie
     const cardId  = Cookies.get("cardId")
 
-    
+    // grabbing links, link info, and avatar
     const linkInfo = DetermineInfo(session)
     const links = DetermineLinks(session)
     const avatar = DetermineAvatar(session)
 
 
-
+    // when user clicks share, use share function
     const shareCard = async () => {
-            
+        
+
+        // if there is a cardId cookie, then just go to share page
         if (cardId) {
 
             console.log("card id exists, do not create new temp doc")
+
+            // turn cardId to base64 string for better anonymity 
             const sharedCard = Buffer.from(cardId).toString('base64')
+
+            // generate random url
             const genUrl = uuidv4()
+
+            // going to the url with the share card string
             router.push({
                 pathname: `/pages/${genUrl}`,
                 query: { sharedCard }
@@ -48,13 +58,22 @@ const Preview = () => {
             return
 
         } 
+
+        // if there is no cardId cookie, then create a temporary card doc in db to be shared
         else {
 
-            
             console.log("Card id does not exist, create new temp doc")
+
+            // creating temporary card doc
             await createTempCard({ links, linkInfo, avatar }).then(response => {
+
+                // turn cardId to base64 string for better anonymity 
                 const sharedCard = Buffer.from(response.cardId).toString('base64')
+
+                // generating random url
                 const genUrl = uuidv4()
+
+                // going to the url with the share card string
                 router.push({
                     pathname: `/pages/${genUrl}`,
                     query: { sharedCard }
@@ -87,19 +106,22 @@ const Preview = () => {
                         <p>{linkInfo?.linkEmail}</p>
                     </div>
 
-                    <div className={PreviewStyles.links}>
-                        {links?.map((link: any) => (
+                    {links && (
+                        <div className={PreviewStyles.links}>
+                        {links.map((link: any) => (
                             <div key={link.url} role="button" className={PreviewStyles.button_div} style={{ backgroundColor: `${link.color}` }}>
                                 <div>
                                     <Image src={link.img} alt='' width={16} height={16} className={PreviewStyles.link_image}/>
-                                    <p>Github</p>
+                                    <p>{link.platform}</p>
                                 </div>
 
                                 <Image src="/assets/images/icon-arrow-right.svg" alt='' width={16} height={16}/>
                             </div>
                         ))}
 
-                    </div>
+                        </div>
+                    )}
+
                     
                 </div>
             </main>

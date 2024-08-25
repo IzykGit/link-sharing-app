@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "axios";import { handleShareCookies } from "@/pages/helpers/cookies";
 
 export const saveLinkInfo = async (firstName: string, lastName: string, email: string) => {
-    
+
     try {
 
         const response = await axios({
@@ -15,4 +15,5 @@ export const saveLinkInfo = async (firstName: string, lastName: string, email: s
     catch (error) {
         console.log(error)
     }
+
 }

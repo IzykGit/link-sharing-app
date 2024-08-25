@@ -71,13 +71,14 @@ export default function Home() {
     }
 
     // grabbing session stored links
-    const cachedLinks = sessionStorage.getItem("cachedLinks")
+    const sessionLinks = sessionStorage.getItem("sessionLinks")
 
 
     // if session stored links exists, set them to the links state
-    if(cachedLinks) {
+    if(sessionLinks) {
       console.log("getting cached links")
-      setLinks(JSON.parse(cachedLinks))
+      setLinks(JSON.parse(sessionLinks))
+      return;
     }
     else {
 
@@ -94,6 +95,7 @@ export default function Home() {
       }
       
       fetchingLinks()
+      return;
     }
 
     // use session
@@ -132,9 +134,9 @@ export default function Home() {
     const sessionInfo = sessionStorage.getItem("sessionInfo")
 
     // if session stored information exists, set info to the info state
-    if(sessionInfo) {
+    if(sessionInfo === undefined) {
 
-      console.log("getting cached info")
+      console.log("getting session stored info")
       setLinkInfo(JSON.parse(sessionInfo))
       return;
 

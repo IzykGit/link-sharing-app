@@ -28,7 +28,7 @@ const DetermineAvatar = (session: any) => {
         // if stored avatar exists, set avatar to the avatar state
         if(sessionAvatar) {
     
-          console.log("getting cached avatar")
+          console.log("getting session stored avatar")
           setAvatar(JSON.parse(sessionAvatar))
           return;
     

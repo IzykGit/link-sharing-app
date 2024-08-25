@@ -14,7 +14,8 @@ import { dropDownVariants } from '../../lib/framerMotion';
 
 import { useSession } from 'next-auth/react'
 
-import { updateLinks } from '../../lib/hooks/updateLinks';
+import { updateLinks } from '@/lib/hooks/updateLinks';
+import { handleShareCookies, signedInActionHandler } from '../helpers/cookies';
 
 
 
@@ -297,22 +298,23 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
         // checking is a user is logged in, if not, store the links locally and move to next screen
         if(!session || !session.user) {
+            
             localStorage.setItem("locallyStoredLinks", JSON.stringify(inputFields))
+
+            // running share cookie handler
+            handleShareCookies()
+
             return;
         }
 
 
 
-
-
-        // caching saved links
+        // if user is logged in then store the links in the session storage
         sessionStorage.setItem("sessionLinks", JSON.stringify(inputFields))
 
         // updating saved links in database
         await updateLinks(inputFields)
-
-
-        
+        .then(() => signedInActionHandler())
         return;
     }
 

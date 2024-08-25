@@ -11,27 +11,33 @@ import NameFormStyles from "../../styles/components/NameForm.module.css"
 import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 
 import { saveLinkInfo } from '@/lib/hooks/saveLinkInfo'
+import { handleShareCookies } from '../helpers/cookies'
 
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: Function, linkInfo: any, setAvatar: Function, avatar: string }) => {
 
+    // getting the session
     const { data: session } = useSession()
 
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // checking for links info, if none, load default object
     const [infoFields, setInfoFields] = useState(linkInfo ? linkInfo : { firstName: "", lastName: "", linkEmail: ""})
 
+
+    // setting the link info each time an info field is changed
     useEffect(() => {
         setLinkInfo(infoFields)
         console.log("setting info")
     }, [infoFields])
 
 
-
+    // errors states to use to check field emptiness
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
     
 
+    // handler for adding image to image input
     const handleImageClick = () => {
         if(inputRef.current) {
             inputRef.current.click()
@@ -39,6 +45,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     }
 
 
+    // updating the values in the info fields state
     const handleTextInput = (event: any, key: string) => {
         setInfoFields((prevState: any) => {
             return {
@@ -47,6 +54,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
             }
         })
 
+        // remove errors after an input is made
         setFirstNameError(false)
         setLastNameError(false)
     }
@@ -55,14 +63,16 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
 
 
 
-
+    // handling image select, setting image
     const handleImageSet = async (event: any) => {
         const selectedFile = event.target.files?.[0];
+
 
         if (selectedFile) {
 
             const reader = new FileReader()
             
+            // convert image to a base64 string and then set it to the avatar state to be use globally
             reader.onloadend = () => {
                 const base64 = reader.result as string;
                 setAvatar(base64)
@@ -73,33 +83,45 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     }
 
 
-
+    // handle the saving of link info and avatar
     const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        // no initial error
         let hasError = false;
 
+        // if first name is empty then set first name error to true
         if(infoFields.firstName === "") {
             setFirstNameError(true);
             hasError = true;
         }
 
+        // if last name is empty then set last name error to true
         if(infoFields.lastName === "") {
             setLastNameError(true);
             hasError = true;
         }
 
+        // if any errors occur then return here
         if(hasError) return;
 
+
+
+        // if there is no session then store the info and avatar locally
         if(session === null || !session.user) {
             localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields));
-
             if(avatar) {
                 localStorage.setItem("locallyStoredAvatar", JSON.stringify(avatar))
             }
+
+            // running share cookie handler
+            handleShareCookies()
+
             return;
         }
 
+
+        // if user is logged in then store the link info and avatar in the session storage
         sessionStorage.setItem("sessionAvatar", JSON.stringify(avatar))
         sessionStorage.setItem("sessionInfo", JSON.stringify(infoFields))
         await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.linkEmail)

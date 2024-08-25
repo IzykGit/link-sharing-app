@@ -46,7 +46,7 @@ const DetermineInfo = (session: any) => {
     // if stored information exists, set info to the info state
         if(sessionInfo) {
 
-            console.log("getting cached info")
+            console.log("getting session stored info")
             setLinkInfo(JSON.parse(sessionInfo))
             return;
 
