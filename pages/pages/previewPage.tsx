@@ -12,9 +12,9 @@ import Image from 'next/image';
 
 import PreviewStyles from "../../styles/Preview.module.css"
 
-import DetermineInfo from '../hooks/determineInfo';
-import DetermineLinks from '../hooks/determineLinks';
-import DetermineAvatar from '../hooks/determineAvatar';
+import { DetermineInfo } from '../../lib/helpers/determineInfo';
+import { DetermineLinks } from '../../lib/helpers/determineLinks';
+import { DetermineAvatar } from '../../lib/helpers/determineAvatar';
 import { createTempCard } from '@/lib/hooks/createTempCard';
 
 

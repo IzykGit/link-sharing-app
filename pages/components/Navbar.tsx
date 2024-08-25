@@ -7,7 +7,7 @@ import NavStyles from "../../styles/components/Navbar.module.css"
 
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
-import { handleShareCookies } from '../helpers/cookies'
+import { handleShareCookies } from '../../lib/helpers/cookies'
 
 const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Number, linkInfo: any } ) => {
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const DetermineAvatar = (session: any) => {
+export const DetermineAvatar = (session: any) => {
 
     const [avatar, setAvatar] = useState("")
 
@@ -39,4 +39,3 @@ const DetermineAvatar = (session: any) => {
     return avatar
 }
 
-export default DetermineAvatar

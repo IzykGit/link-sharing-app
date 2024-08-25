@@ -1,53 +1,5 @@
-import axios from "axios"
+
 import Cookies from "js-cookie"
-
-
-export const signedInActionHandler = async () => {
-
-    handleSaveCookies()
-    handleShareCookies()
-
-    const cardId = Cookies.get("cardId")
-    if(!cardId) return;
-
-    try {
-
-        console.log("deleting last temp card")
-        await axios({
-            method: "DELETE",
-            url: "/api/delTempCardApi",
-        })
-
-    }
-    catch (error) {
-        console.log(error)
-    }
-
-}
-
-
-export const guestActionHandler = async () => {
-
-    const cardId = Cookies.get("cardId")
-
-    if(!cardId) return;
-
-    try {
-
-        console.log("deleting last temp card")
-        await axios({
-            method: "DELETE",
-            url: "/api/delTempCardApi",
-        })
-
-    }
-    catch (error) {
-        console.log(error)
-    }
-
-}
-
-
 
 export const handleSaveCookies = () => {
 

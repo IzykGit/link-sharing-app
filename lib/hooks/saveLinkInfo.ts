@@ -1,4 +1,4 @@
-import axios from "axios";import { handleShareCookies } from "@/pages/helpers/cookies";
+import axios from "axios";import { handleShareCookies } from "@/lib/helpers/cookies";
 
 export const saveLinkInfo = async (firstName: string, lastName: string, email: string) => {
 

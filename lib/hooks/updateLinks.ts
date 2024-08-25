@@ -1,4 +1,4 @@
-import { handleShareCookies } from "@/pages/helpers/cookies";
+import { handleShareCookies } from "@/lib/helpers/cookies";
 import axios from "axios";
 
 export const updateLinks = async (inputFields: any) => {

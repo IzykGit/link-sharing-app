@@ -10,7 +10,7 @@ interface Info {
   
 
 
-const DetermineInfo = (session: any) => {
+export const DetermineInfo = (session: any) => {
 
 
     const [linkInfo, setLinkInfo] = useState<Info | null>(null)
@@ -77,4 +77,3 @@ const DetermineInfo = (session: any) => {
     return linkInfo
 }
 
-export default DetermineInfo

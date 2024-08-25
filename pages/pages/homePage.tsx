@@ -14,7 +14,7 @@ import HomeStyles from "../../styles/Home.module.css"
 
 import LinksForm from "../components/LinksForm"
 import NameForm from '../components/NameForm'
-import DetermineLinks from '../hooks/determineLinks'
+import DetermineLinks from '../../lib/helpers/determineLinks'
 
 
 

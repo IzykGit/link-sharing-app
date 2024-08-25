@@ -15,8 +15,8 @@ import { dropDownVariants } from '../../lib/framerMotion';
 import { useSession } from 'next-auth/react'
 
 import { updateLinks } from '@/lib/hooks/updateLinks';
-import { handleShareCookies, signedInActionHandler } from '../helpers/cookies';
-
+import { handleShareCookies } from '../../lib/helpers/cookies';
+import { signedInActionHandler } from '../../lib/helpers/actionHandlers';
 
 
 

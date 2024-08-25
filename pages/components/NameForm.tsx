@@ -11,7 +11,7 @@ import NameFormStyles from "../../styles/components/NameForm.module.css"
 import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 
 import { saveLinkInfo } from '@/lib/hooks/saveLinkInfo'
-import { handleShareCookies } from '../helpers/cookies'
+import { handleShareCookies } from '../../lib/helpers/cookies'
 
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: Function, linkInfo: any, setAvatar: Function, avatar: string }) => {

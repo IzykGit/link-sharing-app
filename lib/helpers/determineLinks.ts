@@ -13,7 +13,7 @@ interface Links {
     color: string
 }
 
-const DetermineLinks = (session: any) => {
+export const DetermineLinks = (session: any) => {
 
 
     const [links, setLinks] = useState<Links[]>([])
@@ -76,4 +76,3 @@ const DetermineLinks = (session: any) => {
     return links
 }
 
-export default DetermineLinks

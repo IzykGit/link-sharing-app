@@ -3,7 +3,6 @@ import clientPromise from "@/lib/mongodb";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { handleCookies } from "../helpers/cookies";
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
