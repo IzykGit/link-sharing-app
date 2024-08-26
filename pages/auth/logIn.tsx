@@ -1,17 +1,27 @@
-import React from 'react'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+
+import Cookies from 'js-cookie';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 import SignInStyles from "../../styles/SignIn.module.css";
+import CookiesAlert from '../components/CookiesAlert';
 
 const LogIn = () => {
 
-    const { data: session } = useSession()
     const router = useRouter();
 
+    const consentCookie = Cookies.get("confirmCookie")
+
+    const [acceptedCookies, setAcceptedCookies] = useState(consentCookie ? true : false)
+
+
+
     return (
+        <>
+        {!acceptedCookies && <CookiesAlert setAcceptedCookies={setAcceptedCookies}/>}
         <main className={SignInStyles.main}>
             <Image src="/assets/images/logo-devlinks-large.svg" alt='' width={205} height={55}/>
 
@@ -32,6 +42,7 @@ const LogIn = () => {
                 </div>
             </div>
         </main>
+        </>
     )
 }
 

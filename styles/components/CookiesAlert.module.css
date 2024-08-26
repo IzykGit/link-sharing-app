@@ -1,0 +1,112 @@
+.background {
+    position: absolute;
+    z-index: 1;
+
+    width: 100%;
+    height: 100vh;
+
+    background-color: black;
+    opacity: 0.6;
+}
+
+
+
+.alert_wrapper {
+    position: absolute;
+    z-index: 2;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.alert_card {
+    width: 80%;
+    height: fit-content;
+    
+    padding: 2rem 2rem;
+    box-sizing: border-box;
+
+    border-radius: 0.75rem;
+
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    text-align: center;
+}
+
+.alert_card > h2 {
+    color: #333333;
+    font-weight: 700;
+    margin: 0;
+}
+
+.alert_card > p {
+    line-height: 25px;
+    color: #737373;
+}
+
+
+.alert_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+
+.accept_button {
+    width: 8rem;
+    height: 3rem;
+
+    background-color: #633CFF;
+
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+
+    border-radius: 0.75rem;
+    border: none;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.accept_button:hover {
+    background-color: #BEADFF;
+}
+
+
+
+.decline_button {
+    width: 8rem;
+    height: 3rem;
+
+    border-radius: 0.5rem;
+    border: 0.15rem solid #633CFF;
+    background-color: transparent;
+    
+    color: #633CFF;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.decline_button:hover {
+    background-color: #EFEBFF;
+}
+
+

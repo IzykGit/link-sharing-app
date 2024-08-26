@@ -98,3 +98,15 @@ export const handleCardCookies = () => {
     console.log("deleting cookies")
 }
 
+
+
+export const confirmCookies = () => {
+    
+    const confirmCookie = Cookies.get("confirmCookie")
+
+    if(!confirmCookie) {
+        Cookies.set("confirmCookie", "User has consented to cookie usage", { expires: 30, path: "/", sameSite: "strict"})
+        return;
+    }
+}
+
