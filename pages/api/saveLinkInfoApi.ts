@@ -14,6 +14,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { firstName, lastName, email } = req.body
 
+    const saveCookies = req.cookies.saveCookies;
+    console.log("Save cookies:", saveCookies);
+
+    if(saveCookies === "0") {
+        console.log("No more saves, blocking request")
+        return res.status(401).json({ message: "User ran out of saves, blocking unauthorized request" })
+    }
+
     try {
 
         const client = await clientPromise;

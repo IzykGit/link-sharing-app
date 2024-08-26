@@ -1,8 +1,10 @@
+
 import { authOptions } from "@/lib/authOptions";
 import clientPromise from "@/lib/mongodb";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,6 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if(!session) return;
     console.log(session)
 
+    const saveCookies = req.cookies.saveCookies;
+    console.log("Save cookies:", saveCookies);
+
+    if(saveCookies === "0") {
+        console.log("No more saves, blocking request")
+        return res.status(401).json({ message: "User ran out of saves, blocking unauthorized request" })
+    }
 
     const inputFields = req.body
 

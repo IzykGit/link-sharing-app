@@ -20,6 +20,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ message: "cardId already exists", cardId });
     }
 
+    const shareCookies = req.cookies.shareCookies;
+    console.log("Save cookies:", shareCookies);
+
+    if(shareCookies === "0") {
+        console.log("No more shares, blocking request")
+        return res.status(401).json({ message: "User ran out of shares, blocking unauthorized request" })
+    }
+
     try {
 
         const client = await clientPromise;

@@ -11,7 +11,8 @@ import NameFormStyles from "../../styles/components/NameForm.module.css"
 import uploadIcon from "../../public/assets/images/icon-upload-image.svg"
 
 import { saveLinkInfo } from '@/lib/hooks/saveLinkInfo'
-import { handleShareCookies } from '../../lib/helpers/cookies'
+import { handleCardCookies, handleSaveCookies } from '../../lib/helpers/cookies'
+import SaveNotifications from './SaveNotifications'
 
 
 const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: Function, linkInfo: any, setAvatar: Function, avatar: string }) => {
@@ -35,6 +36,10 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     // errors states to use to check field emptiness
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
+
+    const [showNotification, setShowNotification] = useState(false)
+
+    const [disableSave, setDisableSave] = useState(false)
     
 
     // handler for adding image to image input
@@ -86,6 +91,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     // handle the saving of link info and avatar
     const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setDisableSave(true)
 
         // no initial error
         let hasError = false;
@@ -114,8 +120,15 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
                 localStorage.setItem("locallyStoredAvatar", JSON.stringify(avatar))
             }
 
-            // running share cookie handler
-            handleShareCookies()
+            // running card cookie handler
+            handleCardCookies()
+
+            setShowNotification(true)
+
+            setTimeout(() => {
+                setShowNotification(false)
+                setDisableSave(false)
+            }, 3000)
 
             return;
         }
@@ -124,11 +137,26 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
         // if user is logged in then store the link info and avatar in the session storage
         sessionStorage.setItem("sessionAvatar", JSON.stringify(avatar))
         sessionStorage.setItem("sessionInfo", JSON.stringify(infoFields))
-        await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.linkEmail)
+        await saveLinkInfo(infoFields.firstName, infoFields.lastName, infoFields.linkEmail).then(() => {
+
+            setDisableSave(false)
+            handleSaveCookies()
+
+        })
+
+
+        setShowNotification(true)
+        setTimeout(() => {
+            setShowNotification(false)
+            setDisableSave(false)
+        }, 3000)
+
+        return;
     }
 
     return (
-        
+        <>
+        {showNotification && <SaveNotifications showNotification={showNotification}/>}
         <section className={NameFormStyles.NameForm}>
 
             <form className={NameFormStyles.name_form} onSubmit={handleSave}>
@@ -216,10 +244,11 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
 
 
                 <div className={NameFormStyles.form_btn}>
-                    <button type="submit">Save</button>
+                    <button type="submit" disabled={disableSave}>Save</button>
                 </div>
             </form>
         </section>
+        </>
     )
 }
 

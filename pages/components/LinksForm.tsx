@@ -15,8 +15,9 @@ import { dropDownVariants } from '../../lib/framerMotion';
 import { useSession } from 'next-auth/react'
 
 import { updateLinks } from '@/lib/hooks/updateLinks';
-import { handleShareCookies } from '../../lib/helpers/cookies';
+import { handleSaveCookies, handleCardCookies } from '../../lib/helpers/cookies';
 import { signedInActionHandler } from '../../lib/helpers/actionHandlers';
+import SaveNotifications from './SaveNotifications';
 
 
 
@@ -49,7 +50,9 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
     const [emptyUrls, setEmptyUrls] = useState<Url[]>([])
     const [incorrectUrls, setIncorrectUrls] = useState<Url[]>([])
 
+    const [showNotification, setShowNotification] = useState(false)
 
+    const [disableSave, setDisableSave] = useState(false)
 
 
     useEffect(() => {
@@ -257,6 +260,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
     const saveLinks = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setDisableSave(true)
 
         // checking to see if any input fields are empty, is there are any empty fields, create an array of their ids
         const newEmptyUrls = inputFields.filter(input => input.url === "").map(input => ({ id: input.id }));
@@ -296,13 +300,20 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
             return;
         }
 
+
         // checking is a user is logged in, if not, store the links locally and move to next screen
         if(!session || !session.user) {
             
             localStorage.setItem("locallyStoredLinks", JSON.stringify(inputFields))
 
-            // running share cookie handler
-            handleShareCookies()
+            // running card cookie handler
+            handleCardCookies()
+
+            setShowNotification(true)
+            setTimeout(() => {
+                setDisableSave(false)
+                setShowNotification(false)
+            }, 3000)
 
             return;
         }
@@ -314,11 +325,25 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
         // updating saved links in database
         await updateLinks(inputFields)
-        .then(() => signedInActionHandler())
+        .then(() => {
+
+            signedInActionHandler()
+            handleSaveCookies()
+
+        })
+
+        setShowNotification(true)
+        setTimeout(() => {
+            setShowNotification(false)
+            setDisableSave(false)
+        }, 3000)
+
         return;
     }
 
     return (
+        <>
+        <SaveNotifications showNotification={showNotification}/>
         <section className={LinksFormStyles.form_section}>
 
             <form className={LinksFormStyles.links_form} onSubmit={saveLinks}>
@@ -474,10 +499,11 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
                 {/* save button for the form */}
                 <div className={LinksFormStyles.form_btn}>
-                    <button type="submit">Save</button>
+                    <button type="submit" disabled={disableSave}>Save</button>
                 </div>
             </form>
         </section>
+        </>
     )
 }
 

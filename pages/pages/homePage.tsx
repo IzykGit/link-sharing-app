@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import Cookies from 'js-cookie'
+
+import Image from 'next/image'
 
 import EditorDisplay from '../components/EditorDisplay'
 import Navbar from '../components/Navbar'
@@ -14,7 +17,8 @@ import HomeStyles from "../../styles/Home.module.css"
 
 import LinksForm from "../components/LinksForm"
 import NameForm from '../components/NameForm'
-import DetermineLinks from '../../lib/helpers/determineLinks'
+
+import SaveNotifications from '../components/SaveNotifications'
 
 
 
@@ -41,13 +45,12 @@ export default function Home() {
   const [linkInfo, setLinkInfo] = useState<Info | null>(null)
   const [avatar, setAvatar] = useState<string>("")
 
-
   const [steps, setSteps] = useState(1)
+
 
 
   // grabbing links
   useEffect(() => {
-
 
     // if no session, check for locally stored links and return
     if (session === null) {
@@ -210,7 +213,7 @@ export default function Home() {
 
           {steps === 2 && <NameForm setLinkInfo={setLinkInfo} setAvatar={setAvatar} linkInfo={linkInfo} avatar={avatar} />}
       </main>
-      
+
     </div>
   );
 }

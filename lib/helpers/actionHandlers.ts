@@ -1,7 +1,7 @@
 
 import axios from "axios"
 import Cookies from "js-cookie"
-import { handleShareCookies } from "./cookies";
+import { handleCardCookies } from "./cookies";
 
 export const guestActionHandler = async () => {
 
@@ -29,7 +29,7 @@ export const guestActionHandler = async () => {
 
 export const signedInActionHandler = async () => {
 
-    handleShareCookies()
+    handleCardCookies()
 
 
     // if user has not shared a card then return

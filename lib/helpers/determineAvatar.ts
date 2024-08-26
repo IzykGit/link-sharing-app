@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
-export const DetermineAvatar = (session: any) => {
+export const DetermineAvatar = () => {
 
     const [avatar, setAvatar] = useState("")
+    const { status } = useSession();
 
     useEffect(() => {
 
+        // waiting for the session to be fully loaded
+        if (status === "loading") return;
+
         // if no session, check for locally stored avatar and return
-        if (!session) {
+        if (status === "unauthenticated") {
           console.log('No session available');
         
           const localAvatar = localStorage.getItem("locallyStoredAvatar")
@@ -34,7 +39,7 @@ export const DetermineAvatar = (session: any) => {
     
         }
     
-    }, [session])
+    }, [status])
 
     return avatar
 }

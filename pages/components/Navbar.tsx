@@ -7,7 +7,7 @@ import NavStyles from "../../styles/components/Navbar.module.css"
 
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
-import { handleShareCookies } from '../../lib/helpers/cookies'
+import { handleCardCookies } from '../../lib/helpers/cookies'
 
 const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Number, linkInfo: any } ) => {
 
@@ -41,7 +41,7 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
         // signing out and redirecting back to login page
         signOut({ redirect: false })
         .then(() => {
-            handleShareCookies()
+            handleCardCookies()
             router.push("/");
         })
         .catch((error) => {

@@ -1,6 +1,14 @@
-import axios from "axios";import { handleShareCookies } from "@/lib/helpers/cookies";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export const saveLinkInfo = async (firstName: string, lastName: string, email: string) => {
+
+    const saveCookie = Cookies.get("saveCookies");
+
+    if(saveCookie == "0") {
+        console.log("No saves left, skipping save")
+        return;
+    }
 
     try {
 

@@ -13,17 +13,20 @@ interface Links {
     color: string
 }
 
-export const DetermineLinks = (session: any) => {
+export const DetermineLinks = () => {
 
 
     const [links, setLinks] = useState<Links[]>([])
+    const { status } = useSession();
 
     // grabbing links
     useEffect(() => {
 
+        // waiting for the session to be fully loaded
+        if (status === "loading") return;
 
         // if no session, check for local links and return
-        if (!session) {
+        if (status === "unauthenticated") {
         console.log('No session available');
         
 
@@ -70,7 +73,7 @@ export const DetermineLinks = (session: any) => {
         }
 
     // use session
-    }, [session])
+    }, [status])
 
 
     return links

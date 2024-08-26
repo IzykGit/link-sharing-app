@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie'
 
 interface Links {
     id: number,
@@ -9,6 +10,14 @@ interface Links {
 }
 
 export const createTempCard = async ({ links, linkInfo, avatar }: { links: Array<Links>, linkInfo: any, avatar: string }) => {
+
+
+    const shareCookies = Cookies.get("shareCookies")
+
+    if(shareCookies === "0") {
+        console.log("Out of shares, blocking request")
+        return;
+    }
 
     try {
 

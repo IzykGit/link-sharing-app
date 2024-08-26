@@ -1,0 +1,34 @@
+
+
+.alert_card {
+    position: absolute;
+    z-index: 99;
+
+
+    width: fit-content;
+    min-height: 3.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    border-radius: 0.75rem;
+    background-color: #333333;
+
+    padding: 0rem 2rem;
+
+    left:0;
+    right:0;
+
+    bottom: 0;
+
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+.notification_text {
+    color: #FAFAFA;
+    font-weight: 700;
+}

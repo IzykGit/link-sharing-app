@@ -80,12 +80,14 @@ const Shareable = () => {
                     <>
                     <div className={SharedStyles.linkInfo}>
                         {/* <Image alt="" width={104} height={104} src={card.avatar} className={SharedStyles.avatar}/> */}
+                        <p style={{ opacity: 0.5 }}>Avatars not available at this time</p>
                         <h1>{card.firstName} {card.lastName}</h1>
                         <p>{card.linkEmail}</p>
                         </div>
                         <div className={SharedStyles.links}>
                             {card.links?.map((link: any) => (
-                                <div key={link.url} role="button" className={SharedStyles.button_div} style={{ backgroundColor: `${link.color}` }}>
+                                <div key={link.url} role="button" className={SharedStyles.button_div} style={{ backgroundColor: `${link.color}` }}
+                                onClick={() => window.open(link.url, "_blank")}>
                                     <div>
                                         <Image src={link.img} alt='' width={16} height={16} className={SharedStyles.link_image}/>
                                         <p>{link.platform}</p>

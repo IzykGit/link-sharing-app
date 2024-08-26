@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import getLinkInfo from "@/lib/hooks/getLinkInfo";
+import { useSession } from "next-auth/react";
 
 
 interface Info {
@@ -10,16 +11,20 @@ interface Info {
   
 
 
-export const DetermineInfo = (session: any) => {
+export const DetermineInfo = () => {
 
 
     const [linkInfo, setLinkInfo] = useState<Info | null>(null)
+    const { status } = useSession();
 
     // grabbing link info
     useEffect(() => {
 
+        // waiting for the session to be fully loaded
+        if (status === "loading") return;
+
         // if no session, check for locally stored info and return
-        if (!session) {
+        if (status === "unauthenticated") {
             console.log('No session available');
                 
         
@@ -71,7 +76,7 @@ export const DetermineInfo = (session: any) => {
         }
 
 
-    }, [session])
+    }, [status])
 
 
     return linkInfo
