@@ -19,6 +19,7 @@ const ShareNotification = ({ showNotification }: any) => {
     const shareCookies = Cookies.get("shareCookies")
 
 
+
     // console.log for debugging
     if(session) {
         console.log(`Signed in user have ${shareCookies} left`)
@@ -27,7 +28,7 @@ const ShareNotification = ({ showNotification }: any) => {
         console.log("No signed in user, no save cookies to track")
     }
 
-    
+
     return (
         <motion.div className={ShareStyles.alert_card} variants={notificationVariants} animate={showNotification ? "open" : "close"}>
             <Image src={CopyIcon} alt='' width={25} height={25}/>

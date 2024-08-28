@@ -1,11 +1,11 @@
 
 
 .wrapper {
-    padding: 1.5rem;
+    padding: 0.9rem;
 }
 
 .links_main {
-    height: fit-content;
+    height: inherit;
     width: 100%;
     display: flex;
     gap: 1.5rem;

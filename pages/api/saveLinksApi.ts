@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log("Save cookies:", saveCookies);
 
 
-    // if the user has no more save cookies return, do not allow save
+    // if the user has no more save cookies then return, do not allow save
     if(saveCookies === "0") {
         console.log("No more saves, blocking request")
         return res.status(401).json({ message: "User ran out of saves, blocking unauthorized request" })

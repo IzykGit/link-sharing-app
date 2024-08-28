@@ -35,21 +35,22 @@ const SaveNotifications = ({ showNotification }: any) => {
 
 
     return (
-        <motion.div className={SaveStyles.alert_card} variants={notificationVariants} animate={showNotification ? "open" : "close"}>
-            <Image src={SaveIcon} alt='' width={25} height={25}/>
-            {session ? (
+        showNotification && (
+            <motion.div className={SaveStyles.alert_card} variants={notificationVariants} animate={showNotification ? "open" : "close"}>
+                <Image src={SaveIcon} alt='' width={25} height={25}/>
+                {session ? (
 
-                saveCookies! !== "0" ? (
-                    <p className={SaveStyles.notification_text}>Your changes have been saved! You have {saveCookies}/5 saves left!</p>
+                    saveCookies! !== "0" ? (
+                        <p className={SaveStyles.notification_text}>Your changes have been saved! You have {saveCookies}/5 saves left!</p>
+                    ) : (
+                        <p className={SaveStyles.notification_text}>You've run out of saves! Don't worry, you'll have more tomorrow!</p>
+                    )
+
                 ) : (
-                    <p className={SaveStyles.notification_text}>You've run out of saves! Don't worry, you'll have more tomorrow!</p>
-                )
-
-            ) : (
-                <p className={SaveStyles.notification_text}>Your changes have been saved!</p>
-            )}
-        </motion.div>
-
+                    <p className={SaveStyles.notification_text}>Your changes have been saved!</p>
+                )}
+            </motion.div>
+        )
     )
 }
 
