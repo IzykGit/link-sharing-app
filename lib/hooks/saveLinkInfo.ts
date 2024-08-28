@@ -5,6 +5,7 @@ export const saveLinkInfo = async (firstName: string, lastName: string, email: s
 
     const saveCookie = Cookies.get("saveCookies");
 
+    // if user has no more saves then return
     if(saveCookie == "0") {
         console.log("No saves left, skipping save")
         return;

@@ -9,11 +9,14 @@ interface Links {
     color: string
 }
 
+
+// creating new temp card
 export const createTempCard = async ({ links, linkInfo, avatar }: { links: Array<Links>, linkInfo: any, avatar: string }) => {
 
 
     const shareCookies = Cookies.get("shareCookies")
 
+    // if user has no more shares then return
     if(shareCookies === "0") {
         console.log("Out of shares, blocking request")
         return;

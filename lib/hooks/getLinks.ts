@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// grabbing links
 const getLinks = async () => {
 
     try {

@@ -16,7 +16,7 @@ import { useSession } from 'next-auth/react'
 
 import { updateLinks } from '@/lib/hooks/updateLinks';
 import { handleSaveCookies, handleCardCookies } from '../../lib/helpers/cookies';
-import { signedInActionHandler } from '../../lib/helpers/actionHandlers';
+import { saveActionHandler } from '../../lib/helpers/actionHandlers';
 import SaveNotifications from './SaveNotifications';
 
 
@@ -327,7 +327,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
         await updateLinks(inputFields)
         .then(() => {
 
-            signedInActionHandler()
+            saveActionHandler()
             handleSaveCookies()
 
         })

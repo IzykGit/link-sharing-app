@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
+
+  // grabbing generated id
   const tempDocId = req.query.tempDocId;
 
   try {
@@ -14,6 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (tempDocId) {
 
+      // grabbing generated temporary doc
       const tempDoc = await db.collection("tempshares").findOne({ tempCardCustomId: tempDocId })
       console.log(tempDoc)
       return res.status(200).json(tempDoc)

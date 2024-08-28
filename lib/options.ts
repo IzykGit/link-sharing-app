@@ -1,3 +1,5 @@
+// links options for selected platforms
+
 export const linkOptions = [
     { id: 1, value: "Github", img: "/assets/images/icon-github.svg", color: "#1A1A1A", placeholder: "https://github.com/" },
     { id: 2, value: "GitLab", img: "/assets/images/icon-gitlab.svg", color: "#EB4925", placeholder: "https://about.gitlab.com/"},

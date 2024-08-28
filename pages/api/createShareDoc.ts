@@ -7,7 +7,8 @@ const createShareDoc = async (user: any) => {
 
         const client = await clientPromise;
         const db = client.db("LinkShare")
-
+        
+        // new user model
         const shareModel = {
           userEmail: user.email,
           firstName: "",
@@ -16,6 +17,7 @@ const createShareDoc = async (user: any) => {
           links: [],
         }
 
+        // saving new user model
         const result = await db.collection("shares").insertOne(shareModel)
         console.log("Inserted new doc", result)
 

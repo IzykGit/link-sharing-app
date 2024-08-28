@@ -3,6 +3,7 @@ import Cookies from "js-cookie"
 
 export const handleSaveCookies = () => {
 
+    // grabbing save cookies and the initil expiry time
     const initialExpireTime = Cookies.get("initialExpireSaveTime")
     const saveCookies = Cookies.get("saveCookies")
 
@@ -18,7 +19,7 @@ export const handleSaveCookies = () => {
         const remainingTime = Number(initialExpireTime) - currentTime;
         const remainingDays = remainingTime / (24 * 60 * 60 * 1000); // converting milliseconds to days
     
-        // checking that the remaining time is not negative
+        // updaing the cookies for how many saves the user has left
         switch (saveCookies) {
             case "4":
                 Cookies.set("saveCookies", "3", { expires: remainingDays, path: "/", sameSite: "strict" });
@@ -43,6 +44,8 @@ export const handleSaveCookies = () => {
 
 
 export const handleShareCookies = () => {
+
+    // grabbing save cookies and the initil expiry time
     const initialExpireTime = Cookies.get("initialExpireShareTime")
     const shareCookies = Cookies.get("shareCookies")
 
@@ -58,7 +61,7 @@ export const handleShareCookies = () => {
         const remainingTime = Number(initialExpireTime) - currentTime;
         const remainingDays = remainingTime / (24 * 60 * 60 * 1000); // converting milliseconds to days
     
-        // checking that the remaining time is not negative
+        // updaing the cookies for how many shares the user has left
         switch (shareCookies) {
             case "2":
                 Cookies.set("shareCookies", "1", { expires: remainingDays, path: "/", sameSite: "strict" });
@@ -77,22 +80,31 @@ export const handleShareCookies = () => {
 
 
 // handling cookies for shared cards
+// deleting previous cookies so no data overlaps when user generates a new card
 export const handleCardCookies = () => {
 
-
+    
     const cardId = Cookies.get("cardId")
+
+    // if no card then skip
     if(!cardId) {
         console.log("skip cookie handler")
         return;
     }
 
+    // getting all cookies
     const allCookies = Cookies.get()
 
+
+    // finding all cookies that start with "shareCookie_"
     const filterCardCookies = Object.keys(allCookies)
     .filter(cookieName => cookieName.startsWith("shareCookie_"))
 
+    // removing all share cookies
     filterCardCookies.forEach(cookie => Cookies.remove(cookie, { path: "/" }))
 
+
+    // removing preview card id
     Cookies.remove("cardId")
 
     console.log("deleting cookies")
@@ -100,6 +112,8 @@ export const handleCardCookies = () => {
 
 
 
+
+// confirming users consent to cookies
 export const confirmCookies = () => {
     
     const confirmCookie = Cookies.get("confirmCookie")

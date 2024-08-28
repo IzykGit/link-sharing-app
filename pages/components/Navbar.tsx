@@ -16,6 +16,8 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
 
     const router = useRouter()
 
+
+    // checking window width
     const [windowWidth, setWindowWidth] = useState(0)
 
     useEffect(() => {
@@ -92,6 +94,8 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
                 <div className={NavStyles.preview_container}>
                     <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")}>Preview</button>
 
+
+                    {/* if there is a session display sign out button, if no session display sign in button */}
                     {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
                     {!session && <button type="button" className={NavStyles.preview_small} onClick={() => handleSignOut()}>{signin}</button>}
                 </div>
@@ -109,6 +113,8 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
                 <div className={NavStyles.preview_container}>
                     <button type='button' className={NavStyles.preview_small} onClick={() => router.push("/pages/previewPage")}>{previewIcon}</button>
 
+
+                    {/* if there is a session display sign out button, if no session display sign in button */}
                     {session && <button type="button" className={NavStyles.preview_small} onClick={() => handleSignOut()}>{logout}</button>}
                     {!session && <button type="button" className={NavStyles.preview_small} onClick={() => handleSignOut()}>{signin}</button>}
                 </div>

@@ -55,6 +55,8 @@ const Shareable = () => {
                     console.log(response)
                     console.log("Fetching temp card")
                     
+
+                    // giving all cookies the shareCookie_ prefix so they can easily be handled later
                     Cookies.set(`shareCookie_${decodedId.slice(0, 8)}`, JSON.stringify(response), { expires: 1/8, path: "/", sameSite: "strict" })
                     setCard(response)
                 })

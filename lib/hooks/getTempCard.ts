@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+// grabbing temp doc
 export const getTempCard = async (tempDocId: string) => {
 
     try {

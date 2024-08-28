@@ -14,8 +14,10 @@ const SaveNotifications = ({ showNotification }: any) => {
 
     const { data: session } = useSession()
 
+    // setting the amount of save cookies available
     const [saveCookies, setSaveCookies] = useState(Cookies.get('saveCookies'))
 
+    // console.log for debugging
     if(session) {
         console.log(`Signed in user have ${saveCookies} left`)
     }
@@ -23,6 +25,8 @@ const SaveNotifications = ({ showNotification }: any) => {
         console.log("No signed in user, no save cookies to track")
     }
 
+
+    // display save notification and set save cookies to new save amount value
     useEffect(() => {
         const cookiesValue = Cookies.get('saveCookies')
         setSaveCookies(cookiesValue);

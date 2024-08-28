@@ -48,17 +48,11 @@ const Preview = () => {
     const shareCard = async () => {
         setDisableShare(true)
 
-        if(shareCookies === "0") {
-            console.log("No shares left")
-            return;
-        }
-
         // if there is a cardId cookie, then just go to share page
         if (cardId) {
 
 
             handleShareCookies()
-
 
             // show notification for 3 seconds
             setShowNotification(true)    
