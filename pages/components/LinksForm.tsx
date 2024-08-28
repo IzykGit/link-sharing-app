@@ -261,6 +261,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
     const saveLinks = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setDisableSave(true)
+        setShowNotification(true)
 
         // checking to see if any input fields are empty, is there are any empty fields, create an array of their ids
         const newEmptyUrls = inputFields.filter(input => input.url === "").map(input => ({ id: input.id }));
@@ -329,16 +330,14 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
             saveActionHandler()
             handleSaveCookies()
-
+            setDisableSave(false)
         })
 
 
-        // show notifications for 3 seconds
-        setShowNotification(true)
+        // show notifications for 5 seconds
         setTimeout(() => {
             setShowNotification(false)
-            setDisableSave(false)
-        }, 3000)
+        }, 5000)
 
         return;
     }

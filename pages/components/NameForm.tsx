@@ -92,6 +92,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setDisableSave(true)
+        setShowNotification(true)
 
         // no initial error
         let hasError = false;
@@ -123,7 +124,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
             // running card cookie handler
             handleCardCookies()
 
-            setShowNotification(true)
+
 
             setTimeout(() => {
                 setShowNotification(false)
@@ -141,15 +142,15 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
 
             setDisableSave(false)
             handleSaveCookies()
+            setDisableSave(false)
 
         })
 
 
-        setShowNotification(true)
+        // showing notifications for 5 seconds
         setTimeout(() => {
             setShowNotification(false)
-            setDisableSave(false)
-        }, 3000)
+        }, 5000)
 
         console.log("saved")
         return;

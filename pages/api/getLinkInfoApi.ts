@@ -11,6 +11,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getServerSession(req, res, authOptions)
     if(!session) return;
 
+    // if no user, return
+    if(!session.user) return;
+
     try {
 
         const client = clientPromise;
