@@ -300,3 +300,49 @@
 .field_error {
     color: #FF3939;
 }
+
+
+
+
+
+@media screen and (max-width: 750px) {
+    .image_preview {
+        flex-direction: column;
+    }
+
+    .image_input_container {
+        flex-direction: column;
+    }
+
+    .input_divs {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .text_input, .text_input_error {
+        width: 100%;
+    }
+
+    .text_input > input {
+        width: 100%;
+    }
+
+    .field_error {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    .form_content {
+        padding: 1.5rem;
+    }
+
+    .image_input_container > p {
+        width: 9rem;
+    }
+
+    .image_input {
+        width: 9rem;
+    }
+}

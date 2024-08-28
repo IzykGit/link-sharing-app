@@ -124,6 +124,26 @@ const Preview = () => {
     
     }
 
+
+    const [windowWidth, setWindowWidth] = useState(0)
+
+    useEffect(() => {
+      setWindowWidth(window.innerWidth)
+    }, [])
+
+
+    const backIcon = (
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#633CFF">
+            <path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/>
+        </svg>
+    )
+
+    const shareIcon = (
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFF">
+            <path d="M240-40q-33 0-56.5-23.5T160-120v-440q0-33 23.5-56.5T240-640h120v80H240v440h480v-440H600v-80h120q33 0 56.5 23.5T800-560v440q0 33-23.5 56.5T720-40H240Zm200-280v-447l-64 64-56-57 160-160 160 160-56 57-64-64v447h-80Z"/>
+        </svg>
+    )
+
     return (
         <>
         <div className={PreviewStyles.background_div}></div>
@@ -132,10 +152,18 @@ const Preview = () => {
 
             {showNotification && <ShareNotification showNotification={showNotification}/>}
             <header className={PreviewStyles.preview_header}>
-
-                <button type='button' className={PreviewStyles.editor_return} onClick={() => router.push("/pages/homePage")}>Back to Editor</button>
-
-                <button type="button" className={PreviewStyles.share_button} disabled={disableShare} onClick={() => shareCard()}>Share</button>
+                {windowWidth > 400 ? (
+                    <>
+                    <button type='button' className={PreviewStyles.editor_return} onClick={() => router.push("/pages/homePage")}>Back to Editor</button>
+                    <button type="button" className={PreviewStyles.share_button} disabled={disableShare} onClick={() => shareCard()}>Share</button>
+                    </>
+                ) : (
+                    <>
+                    <button type='button' className={PreviewStyles.editor_return_icon} onClick={() => router.push("/pages/homePage")}>{backIcon}</button>
+                    <button type="button" className={PreviewStyles.share_button_icon} disabled={disableShare} onClick={() => shareCard()}>{shareIcon}</button>
+                    </>
+                )}
+                
 
             </header>
             <main className={PreviewStyles.main}>

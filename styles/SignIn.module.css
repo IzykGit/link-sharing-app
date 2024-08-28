@@ -119,3 +119,29 @@
 
     cursor: pointer;
 }
+
+
+
+
+
+@media screen and (max-width: 500px) {
+    .signin_card {
+        width: 90%;
+
+        text-align: center;
+    }
+
+    .create_account_div {
+        flex-direction: column;
+    }
+
+    .continue_button {
+        padding: 0.5rem;
+        height: 4rem;
+    }
+
+    .signin_button {
+        padding: 0.5rem;
+        height: 4rem;
+    }
+}

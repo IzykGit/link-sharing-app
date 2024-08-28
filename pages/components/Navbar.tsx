@@ -68,13 +68,13 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
             <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
         </svg>
     )
+    
+
 
 
     return (
-        <header className={NavStyles.main}>
-            
-            {windowWidth > 1000 ? (
-                <>
+        windowWidth > 1000 ? (
+            <header className={NavStyles.main}>
                 <Image src="/assets/images/logo-devlinks-large.svg" alt='dev links' onClick={windowReload} width={146} height={32}/>
 
                 <nav className={NavStyles.links}>
@@ -88,9 +88,9 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
 
                     {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
                 </div>
-                </>
-            ) : (
-                <>
+            </header>
+        ) : (
+            <header className={NavStyles.main_small}>
                 <Image src="/assets/images/logo-devlinks-small.svg" alt='dev links' onClick={windowReload} width={32} height={32}/>
 
                 <nav className={NavStyles.links_small}>
@@ -104,9 +104,8 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
 
                     {session && <button type="button" className={NavStyles.preview_small} onClick={() => handleSignOut()}>{logout}</button>}
                 </div>
-                </>
-            )}
-        </header>
+            </header>
+        )
     )
 }
 

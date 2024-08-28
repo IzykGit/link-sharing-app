@@ -117,3 +117,23 @@
 .link_image {
     filter: brightness(0) invert(1);
 }
+
+
+@media screen and (max-width: 450px) {
+    .background_div {
+        display: none;
+    }
+
+    .main {
+        width: 100%;
+        background-color: white;
+        text-align: center;
+    }
+
+    .content_card {
+        box-shadow: none;
+
+        width: 10rem;
+    }
+
+}

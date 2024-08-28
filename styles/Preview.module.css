@@ -190,3 +190,93 @@
 .link_image {
     filter: brightness(0) invert(1);
 }
+
+
+
+
+
+
+
+.editor_return_icon {
+    height: 2.875rem;
+    width: 5rem;
+
+    border-radius: 0.5rem;
+    border: 0.15rem solid #633CFF;
+    background-color: transparent;
+    
+    color: #633CFF;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.editor_return_icon:hover {
+    background-color: #EFEBFF;
+}
+
+.share_button_icon {
+    height: 2.875rem;
+    width: 5rem;
+
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #633CFF;
+    
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.share_button_icon:hover {
+    background-color: #BEADFF;
+    box-shadow: 0px 0px 10px 0px #BEADFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 450px) {
+    .background_div {
+        display: none;
+    }
+
+    .preview_header {
+        padding: 0rem 1rem;
+        width: 100%;
+
+        margin-bottom: 1.5rem;
+    }
+
+    .wrapper {
+        background-color: white;
+        padding: 0rem;
+
+        height: 100vh;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .content_card {
+        box-shadow: none;
+
+        width: 10rem;
+    }
+
+}
