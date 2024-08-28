@@ -246,7 +246,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
 
 
                 <div className={NameFormStyles.form_btn}>
-                    <button type="submit" disabled={disableSave}>Save</button>
+                    <button type="submit" disabled={disableSave}>{disableSave ? "Saving..." : "Save"}</button>
                 </div>
             </form>
         </section>

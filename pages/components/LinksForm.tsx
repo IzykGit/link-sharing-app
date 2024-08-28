@@ -500,7 +500,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
                 {/* save button for the form */}
                 <div className={LinksFormStyles.form_btn}>
-                    <button type="submit" disabled={disableSave}>Save</button>
+                    <button type="submit" disabled={disableSave}>{disableSave ? "Saving..." : "Save"}</button>
                 </div>
             </form>
         </section>

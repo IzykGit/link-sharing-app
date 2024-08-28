@@ -41,7 +41,7 @@ const SaveNotifications = ({ showNotification }: any) => {
                 {session ? (
 
                     saveCookies! !== "0" ? (
-                        <p className={SaveStyles.notification_text}>Your changes have been saved! You have {saveCookies}/5 saves left!</p>
+                        <p className={SaveStyles.notification_text}>Saving your changes! You have {saveCookies}/5 saves left!</p>
                     ) : (
                         <p className={SaveStyles.notification_text}>You've run out of saves! Don't worry, you'll have more tomorrow!</p>
                     )
