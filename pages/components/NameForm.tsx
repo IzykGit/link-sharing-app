@@ -111,7 +111,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
         // if any errors occur then return here
         if(hasError) return;
 
-
+        console.log("no errors")
 
         // if there is no session then store the info and avatar locally
         if(session === null || !session.user) {
@@ -151,6 +151,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
             setDisableSave(false)
         }, 3000)
 
+        console.log("saved")
         return;
     }
 

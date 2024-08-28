@@ -332,6 +332,8 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
         })
 
+
+        // show notifications for 3 seconds
         setShowNotification(true)
         setTimeout(() => {
             setShowNotification(false)

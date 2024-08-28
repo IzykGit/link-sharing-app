@@ -59,6 +59,8 @@ const Preview = () => {
 
             handleShareCookies()
 
+
+            // show notification for 3 seconds
             setShowNotification(true)    
             setTimeout(() => {
                 setDisableShare(false)
