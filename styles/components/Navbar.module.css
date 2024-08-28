@@ -13,6 +13,7 @@
 
     border-radius: 1rem;
     margin-bottom: 1.5rem;
+    
 }
 
 .main > img {
@@ -20,6 +21,12 @@
     cursor: pointer;
 }
 
+
+.preview_container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
 
 .preview {
@@ -36,13 +43,36 @@
 
     cursor: pointer;
     transition: 0.4s;
+    font-family: "Instrument Sans", sans-serif;
 }
 
 .preview:hover {
     background-color: #EFEBFF;
 }
 
+.preview_small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    height: 2.5rem;
+    width: 4rem;
+
+    border-radius: 0.5rem;
+    border: 0.15rem solid #633CFF;
+    background-color: transparent;
+    
+    color: #633CFF;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.preview_small:hover {
+    background-color: #EFEBFF;
+}
 
 
 
@@ -154,5 +184,23 @@
     height: 1.25rem;
     fill: #633CFF;
     transition: 0.4s;
+}
+
+
+
+
+
+
+.links_small {
+    display: flex;
+    gap: 1rem;
+}
+
+.links_small > .navlink {
+    width: 4rem;
+}
+
+.links_small > .navlink_active {
+    width: 4rem;
 }
 

@@ -15,14 +15,27 @@ const LogIn = () => {
 
     const consentCookie = Cookies.get("confirmCookie")
 
-    const [acceptedCookies, setAcceptedCookies] = useState(consentCookie ? true : false)
+    const [acceptedCookies, setAcceptedCookies] = useState(false)
+
+
+    // checking if the use has consented to cookies
+    useEffect(() => {
+        if(consentCookie) {
+            setAcceptedCookies(true)
+        }
+        else {
+            setAcceptedCookies(false)
+        }
+    }, [consentCookie])
 
 
 
     return (
         <>
+        {/* if user has not consented to cookies, then display cookie policy */}
         {!acceptedCookies && <CookiesAlert setAcceptedCookies={setAcceptedCookies}/>}
         <main className={SignInStyles.main}>
+
             <Image src="/assets/images/logo-devlinks-large.svg" alt='' width={205} height={55}/>
 
 

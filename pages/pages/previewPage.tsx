@@ -139,10 +139,12 @@ const Preview = () => {
 
             </header>
             <main className={PreviewStyles.main}>
-                <div className={PreviewStyles.content_card}>
+
+                {(linkInfo || links.length > 0) && (
+                    <div className={PreviewStyles.content_card}>
 
                     <div className={PreviewStyles.linkInfo}>
-                        <Image alt="" width={104} height={104} src={avatar} className={PreviewStyles.avatar}/>
+                        {avatar && <Image alt="" width={104} height={104} src={avatar} className={PreviewStyles.avatar}/>}
                         <h1>{linkInfo?.firstName} {linkInfo?.lastName}</h1>
                         <p>{linkInfo?.linkEmail}</p>
                     </div>
@@ -164,7 +166,10 @@ const Preview = () => {
                     )}
 
                     
-                </div>
+                    </div>
+                )}
+
+
             </main>
         </div>
         </>

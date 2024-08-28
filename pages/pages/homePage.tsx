@@ -42,11 +42,16 @@ export default function Home() {
   const { data: session } = useSession()
 
   const [links, setLinks] = useState<Links | null>(null)
-  const [linkInfo, setLinkInfo] = useState<Info | null>(null)
+  const [linkInfo, setLinkInfo] = useState<Info | undefined>(undefined)
   const [avatar, setAvatar] = useState<string>("")
 
   const [steps, setSteps] = useState(1)
 
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+  }, [])
 
 
   // grabbing links
@@ -130,7 +135,7 @@ export default function Home() {
 
 
 
-    if(linkInfo) return;
+    if(linkInfo !== undefined) return;
 
 
     // grabbing session stored info
@@ -207,7 +212,7 @@ export default function Home() {
 
       <Navbar setSteps={setSteps} steps={steps} linkInfo={linkInfo}/>
       <main className={HomeStyles.links_main}>
-          {<EditorDisplay links={links} steps={steps} linkInfo={linkInfo} avatar={avatar}/>}
+          {windowWidth > 1275 && <EditorDisplay links={links} steps={steps} linkInfo={linkInfo} avatar={avatar}/>}
 
           {steps === 1 && <LinksForm setLinks={setLinks} links={links}/>}
 
