@@ -9,13 +9,13 @@ const index = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if(!session || !session.user) {
+    if(session === null || !session.user) {
       router.push("/auth/signin")
     }
     else {
       router.push("/pages/home")
     }
-  }, [])
+  }, [session])
 
   return null;
 }
