@@ -8,14 +8,14 @@ const index = () => {
   const { data: session } = useSession()
   const router = useRouter();
 
-
-  if(session === null || !session.user) {
+  useEffect(() => {
+    if(session === null || !session?.user) {
       router.push("/auth/signin")
-  }
-  else {
-    router.push("/pages/home")
-  }
-
+    }
+    else {
+      router.push("/pages/home")
+    }
+  }, [session])
 
   return null;
 }
