@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import Cookies from 'js-cookie';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 import SignInStyles from "../../styles/SignIn.module.css";
 import CookiesAlert from '../components/CookiesAlert';

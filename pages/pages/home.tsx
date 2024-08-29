@@ -70,13 +70,11 @@ export default function Home() {
 
     // if no session, check for locally stored links and return
     if (session === null) {
-      console.log('No session available');
-      
 
       const localLinks = localStorage.getItem("locallyStoredLinks")
 
       if(localLinks) {
-        console.log("getting locally stored links")
+
         setLinks(JSON.parse(localLinks))
         return
       }
@@ -95,7 +93,7 @@ export default function Home() {
 
     // if session stored links exists, set them to the links state
     if(sessionLinks) {
-      console.log("getting cached links")
+
       setLinks(JSON.parse(sessionLinks))
       return;
     }
@@ -104,10 +102,8 @@ export default function Home() {
       // if no session links exists, make a fetch request to get links from db
       const fetchingLinks = async () => {
 
-        console.log("making fetch request")
         const response = await getLinks()
 
-        console.log(response)
         // after links are retrieved, store them so unnecessary are prevented
         sessionStorage.setItem("cachedLinks", JSON.stringify(response))
         setLinks(response)
@@ -128,14 +124,12 @@ export default function Home() {
   useEffect(() => {
 
     // if no session, check for locally stored info and return
-    if (session === null) {
-      console.log('No session available');
-      
+    if (session === null) {      
 
       const localInfo = localStorage.getItem("locallyStoredInfo")
 
       if(localInfo) {
-        console.log("getting locally stored info")
+
         setLinkInfo(JSON.parse(localInfo))
         return
       }
@@ -155,21 +149,16 @@ export default function Home() {
     // if session stored information exists, set info to the info state
     if(sessionInfo === undefined) {
 
-      console.log("getting session stored info")
       setLinkInfo(JSON.parse(sessionInfo))
       return;
 
     }
     else {
 
-      console.log("in else statement")
       // if no session stored info exists, make a fetch request to get link info from db
       const fetchingLinks = async () => {
 
-        console.log("making fetch request")
-
         const response = await getLinkInfo()
-        console.log(response)
 
         // after link info is retrieved, store them so unnecessary fetches are prevented
         sessionStorage.setItem("sessionInfo", JSON.stringify(response))
@@ -187,12 +176,11 @@ export default function Home() {
 
     // if no session, check for locally stored avatar and return
     if (session === null) {
-      console.log('No session available');
     
       const localAvatar = localStorage.getItem("locallyStoredAvatar")
 
       if(localAvatar) {
-        console.log("getting locally stored info")
+
         setAvatar(JSON.parse(localAvatar))
         return
       }
@@ -207,7 +195,6 @@ export default function Home() {
     // if stored avatar exists, set avatar to the avatar state
     if(sessionAvatar) {
 
-      console.log("getting cached avatar")
       setAvatar(JSON.parse(sessionAvatar))
       return;
 
