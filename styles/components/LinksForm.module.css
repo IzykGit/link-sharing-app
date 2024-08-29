@@ -286,7 +286,7 @@
     outline: none;
     border: none;
 
-    width: 50%;
+    width: 70%;
     padding-left: 1.5rem;
     box-sizing: border-box;
 
@@ -309,6 +309,17 @@
 
     display: flex;
     align-items: center;
+}
+
+
+@media screen and (max-width: 750px) {
+    .input_error {
+        display: none;
+    }
+
+    .links_url_input {
+        width: 100%;
+    }
 }
 
 

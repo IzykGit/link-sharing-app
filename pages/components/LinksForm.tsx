@@ -54,6 +54,8 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
     const [disableSave, setDisableSave] = useState(false)
 
+    console.log(emptyUrls)
+    console.log(incorrectUrls)
 
     useEffect(() => {
         if(!links) {
@@ -85,6 +87,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
         }
 
     }, [dropDownStates, inputFields.length]);
+
 
     // adding new link input field
     const addLink = () => {
@@ -258,16 +261,18 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
 
 
+
+
     const saveLinks = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setDisableSave(true)
-        setShowNotification(true)
+
 
         // checking to see if any input fields are empty, is there are any empty fields, create an array of their ids
         const newEmptyUrls = inputFields.filter(input => input.url === "").map(input => ({ id: input.id }));
         
         // checking to see if any input field urls are incorrect (does not match the platforms base url), if there are any incorrect urls, create an array of their ids
-        const newIncorrectUrls = inputFields.filter(input => !linkOptions.some(option => input.url.includes(option.placeholder))).map(input => ({ id: input.id }));
+        const newIncorrectUrls = inputFields.filter(input => !linkOptions.some(option => input.url.includes(option.placeholder.slice(5)))).map(input => ({ id: input.id }));
 
 
         if (newEmptyUrls.length > 0) {
@@ -283,6 +288,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
             console.log("empty urls found");
             console.log(emptyUrls)
 
+            setDisableSave(false)
             return;
         }
 
@@ -298,6 +304,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
             console.log("incorrect urls found");
             console.log(incorrectUrls)
 
+            setDisableSave(false)
             return;
         }
 
@@ -319,6 +326,7 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
             return;
         }
 
+        setShowNotification(true)
 
 
         // if user is logged in then store the links in the session storage

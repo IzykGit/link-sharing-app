@@ -13,7 +13,7 @@ const index = () => {
       router.push("/auth/logIn")
     }
     else {
-      router.push("/pages/homePage")
+      router.push("/pages/home")
     }
   }, [])
 

@@ -47,7 +47,7 @@ const LogIn = () => {
                 </div>
 
                 <button type='button' onClick={() => signIn("github")} className={SignInStyles.signin_button}><Image src="/assets/images/icon-github.svg" alt='' width={25} height={25}/>Sign in with Github</button>
-                <button type='button' onClick={() => router.push("/pages/homePage")} className={SignInStyles.continue_button}>Continue without account</button>
+                <button type='button' onClick={() => router.push("/pages/home")} className={SignInStyles.continue_button}>Continue without account</button>
 
                 <div className={SignInStyles.create_account_div}>
                     <p>Don't have an account?</p>

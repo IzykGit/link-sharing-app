@@ -6,6 +6,7 @@
     align-items: center;
 
     background-color: white;
+    
     height: 4rem;
 
     padding: 1.2rem 2rem;
@@ -14,6 +15,8 @@
     border-radius: 1rem;
     margin-bottom: 1.5rem;
     
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .main > img {
@@ -25,6 +28,8 @@
 .preview_container {
     display: flex;
     align-items: center;
+
+    width: max-content;
     gap: 0.5rem;
 }
 
@@ -180,7 +185,7 @@
     justify-content: center;
     align-items: center;
 
-    gap: 1rem;
+    gap: 5rem;
 
     background-color: white;
     height: fit-content;
@@ -205,7 +210,7 @@
     justify-content: center;
 
     height: 2.5rem;
-    width: 3.5rem;
+    width: 6rem;
 
     border-radius: 0.5rem;
     border: 0.15rem solid #633CFF;
@@ -231,11 +236,41 @@
 }
 
 .links_small > .navlink {
-    width: 3.5rem;
+    width: 6rem;
 }
 
 .links_small > .navlink_active {
-    width: 3.5rem;
+    width: 6rem;
+}
+
+
+@media screen and (max-width: 750px) {
+
+    .preview_small {
+        width: 3.5rem;
+    }
+
+    .links_small > .navlink {
+        width: 3.5rem;
+    }
+    
+    .links_small > .navlink_active {
+        width: 3.5rem;
+    }
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .main_small {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .main_small > img {
+        width: 3.5rem;
+    }
 }
 
 

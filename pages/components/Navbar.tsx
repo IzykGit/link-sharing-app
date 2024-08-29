@@ -21,6 +21,8 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
     const [windowWidth, setWindowWidth] = useState(0)
 
     useEffect(() => {
+        setWindowWidth(window.innerWidth)
+
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
         };
@@ -89,7 +91,7 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
 
 
     return (
-        windowWidth > 1000 ? (
+        windowWidth > 925 ? (
             <header className={NavStyles.main}>
                 <Image src="/assets/images/logo-devlinks-large.svg" alt='dev links' onClick={windowReload} width={146} height={32}/>
 
@@ -100,17 +102,17 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
                 </nav>
 
                 <div className={NavStyles.preview_container}>
-                    <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/previewPage")}>Preview</button>
+                    <button type='button' className={NavStyles.preview} onClick={() => router.push("/pages/preview")}>Preview</button>
 
 
                     {/* if there is a session display sign out button, if no session display sign in button */}
                     {session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign Out</button>}
-                    {!session && <button type="button" className={NavStyles.preview_small} onClick={() => handleSignOut()}>{signin}</button>}
+                    {!session && <button type="button" className={NavStyles.preview} onClick={() => handleSignOut()}>Sign In</button>}
                 </div>
             </header>
         ) : (
             <header className={NavStyles.main_small}>
-                <Image src="/assets/images/logo-devlinks-small.svg" alt='dev links' onClick={windowReload} width={32} height={32}/>
+                <Image src="/assets/images/logo-devlinks-small.svg" alt='dev links' onClick={windowReload} width={100} height={32}/>
 
                 <nav className={NavStyles.links_small}>
                     <a className={steps !== 1 ? NavStyles.navlink : NavStyles.navlink_active} onClick={() => setSteps(1)}>{linkIcon}</a>
@@ -119,7 +121,7 @@ const Navbar = ({ setSteps, steps, linkInfo }: { setSteps: Function, steps: Numb
                 </nav>
 
                 <div className={NavStyles.preview_container}>
-                    <button type='button' className={NavStyles.preview_small} onClick={() => router.push("/pages/previewPage")}>{previewIcon}</button>
+                    <button type='button' className={NavStyles.preview_small} onClick={() => router.push("/pages/preview")}>{previewIcon}</button>
 
 
                     {/* if there is a session display sign out button, if no session display sign in button */}

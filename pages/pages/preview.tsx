@@ -74,7 +74,7 @@ const Preview = () => {
             // generate random url
             const genUrl = uuidv4()
 
-            const copyUrl = `http://localhost:3000/pages/${genUrl}?sharedCard=${base64CardId}`
+            const copyUrl = `https://link-sharing-app-yzuc.vercel.app/pages/${genUrl}?sharedCard=${base64CardId}`
 
             // copying the temp docs page to the users clipboard
             await navigator.clipboard.writeText(copyUrl)
@@ -109,7 +109,7 @@ const Preview = () => {
                 const genUrl = uuidv4()
 
 
-                const copyUrl = `http://localhost:3000/pages/${genUrl}?sharedCard=${base64CardId}`
+                const copyUrl = `https://link-sharing-app-yzuc.vercel.app/pages/${genUrl}?sharedCard=${base64CardId}`
                 // copying the temp docs page to the users clipboard
                 await navigator.clipboard.writeText(copyUrl)
             })
@@ -120,10 +120,11 @@ const Preview = () => {
     
     }
 
-
     const [windowWidth, setWindowWidth] = useState(0)
 
     useEffect(() => {
+        setWindowWidth(window.innerWidth)
+
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
         };
@@ -158,12 +159,12 @@ const Preview = () => {
             <header className={PreviewStyles.preview_header}>
                 {windowWidth > 400 ? (
                     <>
-                    <button type='button' className={PreviewStyles.editor_return} onClick={() => router.push("/pages/homePage")}>Back to Editor</button>
+                    <button type='button' className={PreviewStyles.editor_return} onClick={() => router.push("/pages/home")}>Back to Editor</button>
                     <button type="button" className={PreviewStyles.share_button} disabled={disableShare} onClick={() => shareCard()}>Share</button>
                     </>
                 ) : (
                     <>
-                    <button type='button' className={PreviewStyles.editor_return_icon} onClick={() => router.push("/pages/homePage")}>{backIcon}</button>
+                    <button type='button' className={PreviewStyles.editor_return_icon} onClick={() => router.push("/pages/home")}>{backIcon}</button>
                     <button type="button" className={PreviewStyles.share_button_icon} disabled={disableShare} onClick={() => shareCard()}>{shareIcon}</button>
                     </>
                 )}
