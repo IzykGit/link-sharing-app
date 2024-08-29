@@ -12,7 +12,7 @@ export const authOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET!,
     pages: {
-        signIn: "/auth/login.tsx",
+        signIn: "/auth/signIn.tsx",
     },
     events: {
         signIn: async ({ user, isNewUser }: any) => {
