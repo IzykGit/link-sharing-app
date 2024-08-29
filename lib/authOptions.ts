@@ -27,7 +27,7 @@ export const authOptions = {
     },
     callbacks: {
         async redirect({ url, baseUrl }: any) {
-            return "/pages/homePage"
+            return "/pages/home"
         }
     }
 }
