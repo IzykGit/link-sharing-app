@@ -20,13 +20,13 @@ const ShareNotification = ({ showNotification }: any) => {
 
 
 
-    // console.log for debugging
-    if(session) {
-        console.log(`Signed in user have ${shareCookies} left`)
-    }
-    else {
-        console.log("No signed in user, no save cookies to track")
-    }
+    // // console.log for debugging
+    // if(session) {
+    //     console.log(`Signed in user have ${shareCookies} left`)
+    // }
+    // else {
+    //     console.log("No signed in user, no save cookies to track")
+    // }
 
 
     return (

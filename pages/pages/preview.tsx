@@ -22,9 +22,6 @@ import { handleShareCookies } from '@/lib/helpers/cookies';
 
 
 const Preview = () => {
-    
-    // getting session
-    const { data: session } = useSession()
 
     const router = useRouter()
 
@@ -42,7 +39,6 @@ const Preview = () => {
     const links = DetermineLinks()
     const avatar = DetermineAvatar()
 
-    console.log(shareCookies)
 
     // when user clicks share, use share function
     const shareCard = async () => {
@@ -61,10 +57,7 @@ const Preview = () => {
                 setShowNotification(false)
             }, 3000)
 
-            console.log("card id exists, do not create new temp doc")
-
             if(shareCookies === "0") {
-                console.log("No shares left")
                 return;
             }
 
@@ -94,11 +87,9 @@ const Preview = () => {
             }, 3000)
 
             if(shareCookies === "0") {
-                console.log("No shares left")
                 return;
             }
 
-            console.log("Card id does not exist, create new temp doc")
             // creating temporary card doc
             await createTempCard({ links, linkInfo, avatar }).then(async (response) => {
 

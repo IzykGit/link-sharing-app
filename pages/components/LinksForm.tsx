@@ -54,9 +54,6 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
     const [disableSave, setDisableSave] = useState(false)
 
-    console.log(emptyUrls)
-    console.log(incorrectUrls)
-
     useEffect(() => {
         if(!links) {
             return;
@@ -82,8 +79,6 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
         else {
             setDraggingStates(Array(inputFields.length).fill(false));
             setDropDownStates(Array(inputFields.length).fill(false));
-            console.log(dropDownStates)
-            console.log(draggingStates)
         }
 
     }, [dropDownStates, inputFields.length]);
@@ -91,7 +86,6 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
 
     // adding new link input field
     const addLink = () => {
-        console.log("Link added")
 
 
         // getting number of input fields
@@ -278,15 +272,10 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
         if (newEmptyUrls.length > 0) {
 
             const alreadyExists = emptyUrls.some(url => newEmptyUrls.some(newUrl => url.id === newUrl.id))
-            console.log(alreadyExists)
 
             if(alreadyExists) return;
 
-
             setEmptyUrls(prevState => [ ...prevState, ...newEmptyUrls ]);
-
-            console.log("empty urls found");
-            console.log(emptyUrls)
 
             setDisableSave(false)
             return;
@@ -300,9 +289,6 @@ const LinksForm = ({ setLinks, links }: { setLinks: Function, links: any }) => {
             if(alreadyExists) return;
 
             setIncorrectUrls(prevState => [ ...prevState, ...newIncorrectUrls ])
-
-            console.log("incorrect urls found");
-            console.log(incorrectUrls)
 
             setDisableSave(false)
             return;

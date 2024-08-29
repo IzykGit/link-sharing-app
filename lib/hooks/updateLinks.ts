@@ -8,7 +8,6 @@ export const updateLinks = async (inputFields: any) => {
 
     // if user has no more saves then return
     if(saveCookie == "0") {
-        console.log("No saves left, skipping save")
         return;
     }
 

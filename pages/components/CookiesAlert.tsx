@@ -7,6 +7,7 @@ const CookiesAlert = ({ setAcceptedCookies }: any) => {
 
     const portfolioUrl = "https://www.lancehemphill.com/"
 
+    // setting confirm cookies and changing accepted state
     const confirm = () => {
         confirmCookies()
         setAcceptedCookies(true)

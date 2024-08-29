@@ -9,8 +9,7 @@ const getLinks = async () => {
             method: "GET",
             url: "/api/getLinksApi"
         })
-
-        console.log(response)
+        
         return response.data.links
     }
     catch (error) {

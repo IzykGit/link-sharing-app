@@ -29,7 +29,6 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
     // setting the link info each time an info field is changed
     useEffect(() => {
         setLinkInfo(infoFields)
-        console.log("setting info")
     }, [infoFields])
 
 
@@ -112,8 +111,6 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
         // if any errors occur then return here
         if(hasError) return;
 
-        console.log("no errors")
-
         // if there is no session then store the info and avatar locally
         if(session === null || !session.user) {
             localStorage.setItem("locallyStoredInfo", JSON.stringify(infoFields));
@@ -151,8 +148,7 @@ const NameForm = ({ setLinkInfo, linkInfo, setAvatar, avatar }: { setLinkInfo: F
         setTimeout(() => {
             setShowNotification(false)
         }, 5000)
-
-        console.log("saved")
+        
         return;
     }
 

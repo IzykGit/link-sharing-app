@@ -11,7 +11,6 @@ export const getTempCard = async (tempDocId: string) => {
             params: { tempDocId }
         })
 
-
         return response.data
 
     }

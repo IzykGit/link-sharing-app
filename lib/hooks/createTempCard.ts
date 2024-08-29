@@ -18,7 +18,6 @@ export const createTempCard = async ({ links, linkInfo, avatar }: { links: Array
 
     // if user has no more shares then return
     if(shareCookies === "0") {
-        console.log("Out of shares, blocking request")
         return;
     }
 
@@ -30,13 +29,10 @@ export const createTempCard = async ({ links, linkInfo, avatar }: { links: Array
             data: { links, linkInfo }
         })
 
-        console.log(response.data)
         return response.data
 
     }
     catch (error) {
-
         console.log(error)
-
     }
 }
