@@ -10,7 +10,7 @@ const index = () => {
 
   useEffect(() => {
     if(!session || !session.user) {
-      router.push("/auth/login")
+      router.push("/auth/signin")
     }
     else {
       router.push("/pages/home")
