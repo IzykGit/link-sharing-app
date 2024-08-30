@@ -48,7 +48,7 @@ const EditorDisplay = ({ links, linkInfo, steps, avatar }: { links: any, linkInf
                 {!(displayInfo?.firstName || displayInfo?.lastName) ? (
                     <rect width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8"/>
                 ) : (
-                    <foreignObject width="160" height="32" x="73.5" y="185" className={EditorDisplayStyles.display_name}>
+                    <foreignObject width="250" height="42" x="33.5" y="185" className={EditorDisplayStyles.display_name}>
                         {displayInfo.firstName} {displayInfo.lastName}
                     </foreignObject>
                 )}

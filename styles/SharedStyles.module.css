@@ -31,7 +31,7 @@
 
 
 .content_card {
-    width: 21.8125rem;
+    min-width: 21.8125rem;
     height: fit-content;
 
     display: flex;
